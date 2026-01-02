@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ark College 入塾案内パンフレット</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         /* Base Settings */
@@ -47,25 +47,36 @@
             flex-direction: column;
         }
 
-        /* Print Settings */
+        /* Print Settings - High Precision */
         @media print {
             body {
                 background: none;
                 padding: 0;
                 gap: 0;
                 display: block;
+                -webkit-print-color-adjust: exact; /* Chrome/Safari */
+                print-color-adjust: exact; /* Firefox */
             }
             .page {
-                width: 100%;
-                height: 100vh; /* Adjust for print rendering */
+                width: 210mm;
+                height: 297mm; /* Force A4 Height */
                 box-shadow: none;
                 page-break-after: always;
+                break-after: page;
                 margin: 0;
+                overflow: hidden;
+                border: none;
             }
-            /* Hide browser default headers/footers if possible in settings, but CSS helps */
+            
+            /* Hide UI elements during print */
+            .no-print {
+                display: none !important;
+            }
+
+            /* Set Page Size */
             @page {
                 size: A4 portrait;
-                margin: 0;
+                margin: 0; /* Remove default browser margins */
             }
         }
 
@@ -123,6 +134,18 @@
 </head>
 <body>
 
+    <!-- Print Guide (Hidden on Print) -->
+    <div class="no-print fixed top-0 left-0 w-full bg-navy text-white p-4 z-50 shadow-lg flex justify-between items-center opacity-90 hover:opacity-100 transition-opacity">
+        <div class="text-sm">
+            <i class="fa-solid fa-print text-gold mr-2"></i>
+            <strong>印刷・PDF保存のヒント:</strong> 「背景のグラフィック」を有効にし、「余白：なし」に設定してください。
+        </div>
+        <button onclick="window.print()" class="bg-gold text-navy px-4 py-1 rounded font-bold hover:bg-white transition-colors text-sm">
+            印刷する / PDF保存
+        </button>
+    </div>
+    <div class="no-print h-12"></div> <!-- Spacer -->
+
     <!-- P1: Cover -->
     <div class="page bg-navy text-white relative">
         <!-- Abstract Decoration -->
@@ -138,13 +161,14 @@
         </div>
 
         <div class="flex flex-col justify-center items-center h-full z-10 p-12 text-center">
-            <!-- Logo Placeholder -->
+            <!-- Logo Image Placeholder -->
             <div class="mb-16">
-                <div class="w-32 h-32 border border-gold rounded-full flex items-center justify-center mx-auto mb-4 relative">
-                    <span class="serif text-4xl text-gold">A</span>
-                    <div class="absolute -inset-2 border border-gold opacity-30 rounded-full"></div>
-                </div>
-                <h1 class="text-3xl tracking-[0.2em] font-light">ARK COLLEGE</h1>
+                <!-- 【画像差し替え箇所】ここにロゴ画像のURLを指定してください。背景透過のPNG推奨 -->
+                <img src="https://placehold.co/400x400/0A192F/D4AF37?text=LOGO&font=serif" 
+                     alt="Ark College Logo" 
+                     class="w-40 h-40 object-contain mx-auto mb-4 rounded-full bg-navy-light/50 backdrop-blur-sm border border-gold/30 p-4">
+                
+                <h1 class="text-3xl tracking-[0.2em] font-light mt-4">ARK COLLEGE</h1>
             </div>
 
             <!-- Title -->
@@ -166,7 +190,7 @@
 
             <!-- URL -->
             <div class="absolute bottom-12 text-xs tracking-widest opacity-60">
-                https://ark-college-brochure.vercel.app
+                https://forms.gle/rbWA7wUD6Uw1dG76A
             </div>
         </div>
     </div>
@@ -178,7 +202,8 @@
             <span class="text-xs font-serif text-navy">Philosophy</span>
         </div>
 
-        <div class="content-area flex flex-col justify-between">
+        <!-- 修正: justify-between を削除し、gap-12 で間隔を調整して上詰めに配置 -->
+        <div class="content-area flex flex-col gap-12">
             <!-- Section 01 -->
             <section>
                 <h2 class="text-2xl serif text-navy mb-6 flex items-center">
@@ -227,7 +252,7 @@
             </section>
 
             <!-- Section 02 -->
-            <section class="mt-8 pt-8 border-t border-dashed border-gray-300">
+            <section class="pt-8 border-t border-dashed border-gray-300">
                 <h2 class="text-2xl serif text-navy mb-4 flex items-center">
                     <span class="text-gold mr-3 text-3xl">02.</span> 社会が求めるスキル (Education 2030)
                 </h2>
@@ -547,43 +572,33 @@
 
     <!-- P7: Course (High 1-2) -->
     <div class="page">
-        <div class="page-header">
-            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
-            <span class="text-xs font-serif text-navy">Programs: Early Stage</span>
-        </div>
-
-        <div class="content-area">
-            <div class="bg-gray-100 p-6 rounded-xl mb-10">
-                <h3 class="text-navy font-bold mb-4 flex items-center"><i class="fa-solid fa-check-circle text-gold mr-2"></i> 全コース共通：4つの絶対保証</h3>
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div class="bg-white p-3 rounded shadow-sm">
-                        <span class="block font-bold text-navy mb-1">1. 戦略コンサルティング</span>
-                        <span class="text-xs text-gray-500">合格への最短ルートを設計</span>
-                    </div>
-                    <div class="bg-white p-3 rounded shadow-sm">
-                        <span class="block font-bold text-navy mb-1">2. 添削・相談 無制限</span>
-                        <span class="text-xs text-gray-500">Slack対応 / 48h以内返信</span>
-                    </div>
-                    <div class="bg-white p-3 rounded shadow-sm">
-                        <span class="block font-bold text-navy mb-1">3. 定期的な三者面談</span>
-                        <span class="text-xs text-gray-500">保護者様への進捗共有</span>
-                    </div>
-                    <div class="bg-white p-3 rounded shadow-sm">
-                        <span class="block font-bold text-navy mb-1">4. 追加費用一切なし</span>
-                        <span class="text-xs text-gray-500">季節講習費などは不要</span>
-                    </div>
+        <!-- New Section Header to indicate start of Pricing -->
+        <div class="absolute top-0 left-0 w-full bg-navy text-white py-8 px-[15mm] z-20">
+            <div class="flex items-end justify-between border-b border-gold/50 pb-4">
+                <div>
+                    <h2 class="text-3xl serif font-light tracking-wider">Programs & Pricing</h2>
+                    <p class="text-xs text-gold mt-1 uppercase tracking-widest">コース・料金のご案内</p>
+                </div>
+                <div class="text-right opacity-70 text-sm font-light">
+                    Individual Strategy / Professional Mentoring
                 </div>
             </div>
+        </div>
 
-            <div class="mt-8">
+        <div class="content-area pt-24"> <!-- Added padding-top to account for the new header -->
+            
+            <div class="mt-4">
                 <span class="inline-block bg-navy text-white text-xs px-3 py-1 mb-2 rounded-t">高1〜高2生 対象</span>
-                <div class="border-2 border-navy rounded-b rounded-tr p-8 relative shadow-lg">
+                <div class="border-2 border-navy rounded-b rounded-tr p-8 relative shadow-lg bg-white">
                     <div class="flex justify-between items-start mb-6">
-                        <div>
+                        <div class="w-2/3">
                             <h2 class="text-2xl font-serif text-navy font-bold">早期エリート育成コース</h2>
-                            <p class="text-xs text-gray-500 mt-2">高3進級時点で「合格レベル」の基礎（探究・論文力）を完成させる。</p>
+                            <p class="text-sm text-navy font-bold mt-2">月額制のスタンダードコース</p>
+                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                                月4回のセッションで、学習ロードマップ作成から小論文・活動実績・面接指導を生徒一人ひとりに合わせてご提供します。
+                            </p>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right w-1/3">
                             <span class="text-xs text-gray-500 block">月額(税込)</span>
                             <span class="text-3xl font-serif font-bold text-navy">¥110,000</span>
                         </div>
@@ -591,24 +606,36 @@
 
                     <div class="h-px bg-gray-200 mb-6"></div>
 
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="font-bold text-sm mb-3 text-navy">対象期間</h4>
-                            <p class="text-sm">入塾月 〜 高2の3月まで</p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">目的</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                高3進級時点で「合格レベル」の基礎（探究・論文力）を完成させる。
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-bold text-sm mb-3 text-navy">セッション頻度</h4>
-                            <p class="text-sm">月4回 (60分/回)</p>
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">対象期間</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                入塾月 〜 高校2年3月まで
+                                <br><span class="text-[10px] text-gray-500 mt-1 block">※高校2年の2月など、早期に入塾される場合も本コースからのスタートを推奨します。</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">指導頻度</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                月4回（週1回） × 50分（完全オンライン・マンツーマン）
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 bg-yellow-50 p-4 rounded border border-gold/30">
-                        <h4 class="font-bold text-sm mb-2 text-navy flex items-center"><i class="fa-solid fa-lightbulb text-gold mr-2"></i> カリキュラム例</h4>
-                        <ul class="text-xs space-y-2 text-gray-700 list-disc list-inside">
-                            <li><strong>探究テーマの発掘:</strong> 自身の興味関心を学問的に深掘りするリサーチワーク。</li>
-                            <li><strong>評定管理コーチング:</strong> 学校の成績を維持するための学習計画策定。</li>
-                            <li><strong>小論文基礎:</strong> 論理的な文章構成と、社会課題に対する視座の育成。</li>
-                        </ul>
+                    <div class="mt-8 bg-yellow-50 p-4 rounded border border-gold/30">
+                        <h4 class="font-bold text-sm mb-2 text-navy flex items-center"><i class="fa-solid fa-check-circle text-gold mr-2"></i> 全コース共通保証</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-700">
+                            <div>• 戦略コンサルティング</div>
+                            <div>• 添削・相談 無制限 (Slack)</div>
+                            <div>• 定期的な三者面談</div>
+                            <div>• 追加講習費なし</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -624,68 +651,90 @@
         </div>
 
         <div class="content-area">
-            <div class="mb-6">
-                <span class="inline-block bg-gold text-white text-xs px-3 py-1 mb-2 rounded-t">高3生 対象</span>
-                <h2 class="text-2xl font-serif text-navy mb-2">合格完遂コース（パッケージ制）</h2>
-                <p class="text-xs text-gray-600">期間：4月〜12月（約9ヶ月） / 全コース、代表講師によるマンツーマン指導・戦略立案・無制限添削を含みます。</p>
+            <div class="mb-4">
+                <!-- P7と同様のスタイルで「高3生対象」を配置 -->
+                <span class="inline-block bg-gold text-navy text-xs px-4 py-1.5 mb-2 rounded-t font-black tracking-wider border-t border-l border-r border-white/50">高3生 対象</span>
+                
+                <div class="bg-gray-50 p-4 rounded-b rounded-tr border-t-2 border-gold mb-6">
+                    <h2 class="text-2xl font-serif text-navy mb-2">合格完遂コース（パッケージ制）</h2>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        月極ではなくパッケージ制にて3コースをご用意。<br>
+                        志望校合格に向けて必要なサポート（戦略・書類・面接・小論文）を全て提供します。
+                    </p>
+                </div>
             </div>
 
-            <table class="w-full border-collapse text-center">
+            <table class="w-full border-collapse text-center mb-6 mt-4">
                 <thead>
                     <tr>
-                        <th class="p-4 bg-gray-100 border-b-2 border-gray-300 text-gray-600 w-1/4"></th>
-                        <th class="p-4 bg-gray-100 border-b-2 border-gray-300 text-navy font-bold w-1/4">単願完遂コース</th>
-                        <th class="p-4 bg-navy border-b-2 border-gold text-white font-bold w-1/4 relative shadow-lg">
-                            <div class="absolute -top-3 left-0 right-0 bg-gold text-navy text-[10px] font-bold py-1">RECOMMENDED</div>
+                        <th class="p-2 bg-gray-100 border-b-2 border-gray-300 text-gray-600 w-[20%] text-xs"></th>
+                        <th class="p-2 bg-gray-100 border-b-2 border-gray-300 text-navy font-bold w-[25%] text-sm align-bottom pb-4">単願完遂コース</th>
+                        <!-- Recommended Badge調整: 色と枠線で強調 -->
+                        <th class="p-2 pt-10 bg-navy border-b-2 border-gold text-white font-bold w-[30%] relative shadow-xl text-sm align-bottom pb-4 z-10">
+                            <div class="absolute top-0 left-0 right-0 bg-gold text-white text-[11px] font-black py-1.5 shadow-md border-b border-white/20 z-20 tracking-wider">RECOMMENDED</div>
                             難関大コース
                         </th>
-                        <th class="p-4 bg-gray-800 border-b-2 border-gray-600 text-white font-bold w-1/4">最難関大コース</th>
+                        <th class="p-2 bg-gray-800 border-b-2 border-gray-600 text-white font-bold w-[25%] text-sm align-bottom pb-4">最難関大コース</th>
                     </tr>
                 </thead>
-                <tbody class="text-sm">
+                <tbody class="text-xs">
                     <tr>
-                        <td class="p-3 border-b border-gray-200 text-left font-bold text-xs bg-gray-50">志望校ライン</td>
-                        <td class="p-3 border-b border-gray-200 text-xs">希望による<br><span class="opacity-70">(GMARCH、関関同立 等)</span></td>
-                        <td class="p-3 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-navy text-xs">国公立、早慶上智、<br>ICU 等</td>
-                        <td class="p-3 border-b border-gray-200 text-xs">国公立医学部、旧帝大、<br>慶應FIT 等</td>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">志望校ライン</td>
+                        <td class="p-2 border-b border-gray-200">希望による<br><span class="opacity-70 text-[10px]">(GMARCH、関関同立 等)</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-navy">国公立、早慶上智、<br>ICU 等</td>
+                        <td class="p-2 border-b border-gray-200">医学部、旧帝大、<br>慶應FIT 等</td>
                     </tr>
                     <tr>
-                        <td class="p-3 border-b border-gray-200 text-left font-bold text-xs bg-gray-50">対策校数</td>
-                        <td class="p-3 border-b border-gray-200">1校</td>
-                        <td class="p-3 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">3校</td>
-                        <td class="p-3 border-b border-gray-200">5校</td>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">対策校数</td>
+                        <td class="p-2 border-b border-gray-200 font-bold text-sm">1校</td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-sm">3校</td>
+                        <td class="p-2 border-b border-gray-200 font-bold text-sm">5校</td>
                     </tr>
                      <tr>
-                        <td class="p-3 border-b border-gray-200 text-left font-bold text-xs bg-gray-50">対策詳細</td>
-                        <td class="p-3 border-b border-gray-200 text-xs">第一志望 1校<br><span class="opacity-70">（計1校 or 1学部）</span></td>
-                        <td class="p-3 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-xs">第一志望 ＋ 併願校<br><span class="opacity-70 font-normal">（計3校 or 3学部）</span></td>
-                        <td class="p-3 border-b border-gray-200 text-xs">第一志望 ＋ 併願校<br><span class="opacity-70">（計5校 or 5学部）</span></td>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">対策詳細</td>
+                        <td class="p-2 border-b border-gray-200">第一志望 1校<br><span class="opacity-70 text-[10px]">（計1校 or 1学部）</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">第一志望 ＋ 併願<br><span class="opacity-70 font-normal text-[10px]">（計3校 or 3学部）</span></td>
+                        <td class="p-2 border-b border-gray-200">第一志望 ＋ 併願<br><span class="opacity-70 text-[10px]">（計5校 or 5学部）</span></td>
                     </tr>
                     <tr>
-                        <td class="p-3 border-b border-gray-200 text-left font-bold text-xs bg-gray-50">セッション数</td>
-                        <td class="p-3 border-b border-gray-200">全30回<br><span class="text-[10px] opacity-70">+添削連絡無制限</span></td>
-                        <td class="p-3 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">全40回<br><span class="text-[10px] opacity-70 font-normal">+添削連絡無制限</span></td>
-                        <td class="p-3 border-b border-gray-200">全50回<br><span class="text-[10px] opacity-70">+添削連絡無制限</span></td>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">セッション</td>
+                        <td class="p-2 border-b border-gray-200">全30回<br><span class="text-[9px] opacity-70">+添削無制限</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">全40回<br><span class="text-[9px] opacity-70 font-normal">+添削無制限</span></td>
+                        <td class="p-2 border-b border-gray-200">全50回<br><span class="text-[9px] opacity-70">+添削無制限</span></td>
                     </tr>
                     <tr>
-                        <td class="p-3 border-b border-gray-200 text-left font-bold text-xs bg-gray-50">パッケージ金額<br>(税込)</td>
-                        <td class="p-3 border-b border-gray-200 font-serif text-lg">¥770,000</td>
-                        <td class="p-3 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-serif text-xl font-bold text-navy">¥880,000</td>
-                        <td class="p-3 border-b border-gray-200 font-serif text-lg">¥1,210,000</td>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">パッケージ<br>金額(税込)</td>
+                        <td class="p-2 border-b border-gray-200 font-serif text-base">¥770,000</td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-serif text-lg font-bold text-navy">¥880,000</td>
+                        <td class="p-2 border-b border-gray-200 font-serif text-base">¥1,210,000</td>
                     </tr>
                     <tr>
-                        <td class="p-3 text-left font-bold text-xs bg-gray-50 text-gray-400">月換算目安</td>
-                        <td class="p-3 text-xs text-gray-400">約8.5万円</td>
-                        <td class="p-3 border-l-2 border-r-2 border-b-2 border-gold/30 bg-yellow-50 rounded-b text-xs text-navy font-bold">約9.8万円</td>
-                        <td class="p-3 text-xs text-gray-400">約13.4万円</td>
+                        <td class="p-2 text-left font-bold bg-gray-50 text-gray-400">月換算目安</td>
+                        <td class="p-2 text-[10px] text-gray-400">約8.5万円</td>
+                        <td class="p-2 border-l-2 border-r-2 border-b-2 border-gold/30 bg-yellow-50 rounded-b text-[10px] text-navy font-bold">約9.8万円</td>
+                        <td class="p-2 text-[10px] text-gray-400">約13.4万円</td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="mt-8 text-xs text-gray-500 leading-relaxed bg-gray-50 p-4 rounded">
-                <span class="font-bold text-navy block mb-1">※ 特記事項</span>
-                同一大学内の併願（例：慶應法学部FIT A方式とB方式）は、合わせて「1校」とみなす柔軟な対応を行います。<br>
-                5月以降の途中入会の場合も、パッケージ価格は据え置きとなりますが、カリキュラムを短期間に凝縮し、同等の指導量を担保いたします。
+            <div class="grid grid-cols-2 gap-4 mb-4 text-xs">
+                <div class="bg-gray-50 p-3 rounded">
+                    <span class="block font-bold text-navy mb-1">目的</span>
+                    圧倒的な一次通過率と戦略的併願で、確実に合格を獲りに行く。
+                </div>
+                <div class="bg-gray-50 p-3 rounded">
+                    <span class="block font-bold text-navy mb-1">対象期間・内容</span>
+                    高3年4月〜12月（約9ヶ月）。出願に向けたトータルサポート。
+                </div>
+            </div>
+
+            <div class="text-[10px] text-gray-600 leading-relaxed bg-yellow-50/50 border border-gray-200 p-3 rounded">
+                <span class="font-bold text-navy block mb-1 text-xs"><i class="fa-solid fa-circle-info text-gold mr-1"></i>特記事項</span>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong class="text-navy">対策校数のカウント:</strong> 原則、学部ごとに「1校」としてカウントします。ただし、同一大学内の併願に限り、柔軟に「1校」とみなす場合もございます（面談時にご相談ください）。</li>
+                    <li><strong class="text-navy">途中入学の扱い:</strong> 5月以降の入学も可能です。その場合、4月分のカリキュラムを凝縮して実施します。サポート総量は変わらないため、パッケージ価格は据え置きとなります。</li>
+                    <li><strong class="text-navy">期間:</strong> パッケージは原則12月末までです。1月以降も継続指導が必要な場合は、別途追加料金となります。</li>
+                </ul>
             </div>
         </div>
         <div class="page-footer">Page 08 | Ark College Brochure</div>
@@ -695,52 +744,71 @@
     <div class="page">
         <div class="page-header">
             <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
-            <span class="text-xs font-serif text-navy">Information</span>
+            <span class="text-xs font-serif text-navy">Options & Information</span>
         </div>
 
         <div class="content-area flex flex-col gap-8">
             <!-- Options -->
             <section>
-                <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-3">オプション費用</h3>
-                <div class="flex justify-between items-center mb-2 text-sm">
-                    <span>早期コース 追加セッション (2回)</span>
-                    <span class="font-serif">¥44,000〜</span>
+                <div class="flex items-center mb-4">
+                    <h3 class="text-lg font-bold text-navy mr-4">オプションプログラム</h3>
+                    <p class="text-xs text-gray-500">原則、パッケージ内で完結しますが、さらに手厚い指導を希望される方向けです。</p>
                 </div>
-                <div class="flex justify-between items-center text-sm">
-                    <span>高3コース 対策校追加 (1校 / 2校)</span>
-                    <span class="font-serif">¥220,000 / ¥330,000</span>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded p-4">
+                        <h4 class="text-sm font-bold text-navy mb-3 border-b border-gray-100 pb-2">セッション追加 <span class="text-[10px] font-normal text-gray-500 ml-1">(早期コース向け)</span></h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between"><span>2回追加</span> <span class="font-serif">¥44,000</span></div>
+                            <div class="flex justify-between"><span>4回追加</span> <span class="font-serif">¥66,000</span></div>
+                            <div class="flex justify-between"><span>8回追加</span> <span class="font-serif">¥110,000</span></div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded p-4">
+                        <h4 class="text-sm font-bold text-navy mb-3 border-b border-gray-100 pb-2">対策校追加 <span class="text-[10px] font-normal text-gray-500 ml-1">(高3コース向け)</span></h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>1校(1学部) 追加</span> 
+                                <span class="font-serif">¥220,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>2校(2学部) 追加</span> 
+                                <span class="font-serif">¥330,000</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- Entry Fee -->
-            <section>
-                <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-3">入塾金・キャンペーン</h3>
-                <div class="bg-navy text-white p-4 rounded flex justify-between items-center">
+            <section class="border-t border-gray-200 pt-6">
+                <h3 class="text-sm font-bold text-navy mb-3">入塾金・キャンペーン</h3>
+                <div class="bg-navy text-white p-5 rounded flex justify-between items-center shadow-lg">
                     <div>
                         <div class="text-xs opacity-70 mb-1">入塾金</div>
                         <div class="text-xl font-serif">¥55,000 <span class="text-xs font-sans">(税込)</span></div>
                     </div>
-                    <div class="text-right">
-                        <div class="text-gold font-bold text-sm mb-1">★ 即決キャンペーン</div>
-                        <div class="text-xs">無料コンサル当日・翌日の入塾決定で<br><span class="text-lg font-bold border-b border-gold">全額免除</span> いたします。</div>
+                    <div class="text-right border-l border-white/20 pl-6">
+                        <div class="text-gold font-bold text-sm mb-1"><i class="fa-solid fa-star mr-1"></i> 即決キャンペーン</div>
+                        <div class="text-xs opacity-90">無料コンサル当日・翌日の入塾決定で<br><span class="text-lg font-bold border-b border-gold text-white">全額免除</span> いたします。</div>
                     </div>
                 </div>
             </section>
 
-            <!-- Refund -->
-            <section>
-                <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-3">返金規定（安心の30日間トライアル）</h3>
-                <p class="text-xs leading-relaxed text-justify text-gray-600">
-                    指導の質には絶対の自信を持っておりますが、相性の不一致等は起こり得ます。初月30日間はクーリング期間とし、万が一合わない場合は、「入塾金＋戦略立案金(5.5万)＋1ヶ月分月謝」を除いた残額を全額返金いたします。
-                </p>
-            </section>
-
-            <!-- Disclaimer -->
-            <section>
-                <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-3">免責事項</h3>
-                <p class="text-xs leading-relaxed text-justify text-gray-500">
-                    当塾の指導は合格を保証するものではありません。合格には、戦略に基づく生徒ご本人の圧倒的な実行量（リサーチ・執筆・練習）が不可欠であることを予めご了承ください。
-                </p>
+            <!-- Refund & Disclaimer -->
+            <section class="grid grid-cols-2 gap-6 pt-2">
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">返金規定（安心の30日間トライアル）</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        指導の質には絶対の自信を持っておりますが、相性の不一致等は起こり得ます。初月30日間はクーリング期間とし、万が一合わない場合は、「入塾金＋戦略立案金(5.5万)＋1ヶ月分月謝」を除いた残額を全額返金いたします。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">免責事項</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        当塾の指導は合格を保証するものではありません。合格には、戦略に基づく生徒ご本人の圧倒的な実行量（リサーチ・執筆・練習）が不可欠であることを予めご了承ください。
+                    </p>
+                </div>
             </section>
         </div>
         <div class="page-footer">Page 09 | Ark College Brochure</div>
@@ -767,8 +835,12 @@
             </section>
 
             <section class="flex gap-6 items-start mb-auto">
-                <div class="w-32 h-32 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    <i class="fa-solid fa-user text-6xl text-gray-400"></i>
+                <!-- Profile Image Placeholder -->
+                <div class="flex-shrink-0">
+                    <!-- 【画像差し替え箇所】ここに代表講師の顔写真を指定してください。正方形トリミング推奨 -->
+                    <img src="https://placehold.co/300x300/e5e7eb/0A192F?text=PHOTO" 
+                         alt="Noah M. Profile" 
+                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-inner">
                 </div>
                 <div>
                     <h2 class="text-xl serif text-navy font-bold mb-1">Noah M.</h2>
@@ -797,13 +869,13 @@
                 </p>
                 
                 <div class="mb-8 relative z-10">
-                    <span class="inline-block border border-gold text-gold px-8 py-3 tracking-widest text-sm hover:bg-gold hover:text-navy transition-colors cursor-pointer">
+                    <a href="https://forms.gle/rbWA7wUD6Uw1dG76A" target="_blank" rel="noopener noreferrer" class="inline-block border border-gold text-gold px-8 py-3 tracking-widest text-sm hover:bg-gold hover:text-navy transition-colors cursor-pointer no-underline">
                         APPLY FOR CONSULTATION
-                    </span>
+                    </a>
                 </div>
 
                 <div class="text-[10px] opacity-40 tracking-widest relative z-10">
-                    https://ark-college-brochure.vercel.app<br>
+                    https://forms.gle/rbWA7wUD6Uw1dG76A<br>
                     © ARK COLLEGE. All Rights Reserved.
                 </div>
             </div>
