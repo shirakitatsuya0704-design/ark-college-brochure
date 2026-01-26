@@ -1,904 +1,968 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アークカレッジ チラシ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
-<style>
-    /* 印刷基本設定 */
-    @page { 
-        size: A4; 
-        margin: 0; 
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Noto Sans JP', sans-serif;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        background: #ccc;
-        color: #1a1a1a;
-    }
-    
-    /* 変数定義 */
-    :root {
-        --primary: #0A192F; /* 濃紺 */
-        --accent-gold: #C5A059;
-        --accent-gradient: linear-gradient(135deg, #b88a38 0%, #fadd9e 40%, #c5a059 60%, #9e7326 100%);
-        --line-green: #06C755;
-        --line-bg: #f0fdf4;
-        --bg-gray: #F2F4F7;
-        --highlight-red: #cc0000;
-        --table-border: #d1d5db;
-        --ark-highlight-bg: #eef6ff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ark College 入塾案内パンフレット</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        /* Base Settings */
+        :root {
+            --color-navy: #0A192F;
+            --color-navy-light: #172a46;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F3E5AB;
+            --color-paper: #F8F9FA;
+        }
+        body {
+            background-color: #555; /* Preview Background */
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--color-navy);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
 
-    /* 共通クラス */
-    h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
-    p { margin: 0 0 0.5em 0; line-height: 1.5; text-align: justify; letter-spacing: -0.01em; }
-    .serif { font-family: 'Noto Serif JP', serif; }
-    .bold { font-weight: 700; }
-    .heavy { font-weight: 900; }
-    .center { text-align: center; }
+        /* Typography Override */
+        h1, h2, h3, .serif {
+            font-family: 'Noto Serif JP', serif;
+        }
 
-    /* ページレイアウト（A4固定） */
-    .page {
-        width: 210mm;
-        height: 297mm;
-        background: white;
-        margin: 0 auto 10px;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-    }
+        /* A4 Page Container */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* =========================================
-       表面 (Front) デザイン
-       ========================================= */
-    
-    /* ヘッダー */
-    .header {
-        background: var(--primary);
-        color: white;
-        padding: 5mm 10mm 4mm;
-        text-align: center;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 5;
-    }
-    .online-badge {
-        position: absolute;
-        top: 4mm;
-        right: 4mm;
-        background: #e74c3c;
-        color: white;
-        padding: 1.5mm 3mm;
-        font-weight: bold;
-        font-size: 9pt;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        transform: rotate(5deg);
-        z-index: 20;
-        border: 1px solid white;
-    }
-    .target-msg {
-        font-size: 9.5pt;
-        margin-bottom: 1.5mm;
-        display: inline-block;
-        border: 1px solid var(--accent-gold);
-        padding: 0.5mm 4mm;
-        color: var(--accent-gold);
-        font-weight: 600;
-    }
-    .main-title {
-        font-size: 32pt;
-        line-height: 1.1;
-        margin-bottom: 1.5mm;
-        letter-spacing: -0.02em;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    .sub-title {
-        font-size: 12pt;
-        font-weight: 700;
-        background: white;
-        color: var(--primary);
-        display: inline-block;
-        padding: 1mm 5mm;
-        border-radius: 2px;
-    }
+        /* Print Settings - High Precision */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+                display: block;
+                -webkit-print-color-adjust: exact; /* Chrome/Safari */
+                print-color-adjust: exact; /* Firefox */
+            }
+            .page {
+                width: 210mm;
+                height: 297mm; /* Force A4 Height */
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+                margin: 0;
+                overflow: hidden;
+                border: none;
+            }
+            
+            /* Hide UI elements during print */
+            .no-print {
+                display: none !important;
+            }
 
-    /* ビジュアルエリア */
-    .visual-area {
-        position: relative;
-        height: 52mm;
-        flex-shrink: 0;
-        overflow: hidden;
-        background: #000;
-    }
-    .main-visual-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center 25%;
-        opacity: 0.9;
-    }
-    
-    /* 実績帯 */
-    .achievement-bar {
-        background: var(--accent-gradient);
-        color: var(--primary);
-        text-align: center;
-        padding: 2mm 0;
-        font-size: 15pt;
-        position: relative;
-        z-index: 10;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.25);
-        border-bottom: 1px solid #9e7326;
-    }
-    .achievement-text {
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
+            /* Set Page Size */
+            @page {
+                size: A4 portrait;
+                margin: 0; /* Remove default browser margins */
+            }
+        }
 
-    /* 表面コンテンツエリア */
-    .content-front {
-        padding: 5mm 10mm 0;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .catch-copy {
-        font-size: 19pt;
-        font-weight: 900;
-        color: var(--primary);
-        margin-bottom: 3mm;
-        padding-left: 4mm;
-        border-left: 7px solid var(--primary);
-        line-height: 1.25;
-        letter-spacing: -0.03em;
-    }
-    .intro-text {
-        font-size: 10pt;
-        font-weight: 500;
-        line-height: 1.6;
-        margin-bottom: 4mm;
-        color: #333;
-    }
+        /* Utility Components */
+        .gold-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+        }
+        .text-gold { color: var(--color-gold); }
+        .bg-navy { background-color: var(--color-navy); }
+        .bg-navy-light { background-color: var(--color-navy-light); }
+        .text-navy { color: var(--color-navy); }
+        
+        /* Decoration Elements */
+        .compass-bg {
+            position: absolute;
+            opacity: 0.03;
+            pointer-events: none;
+        }
 
-    /* 比較表（リッチデザイン） */
-    .comparison-section {
-        margin-top: auto;
-        margin-bottom: 4mm;
-    }
-    .comp-title {
-        text-align: center;
-        font-weight: 900;
-        font-size: 13pt;
-        color: var(--primary);
-        margin-bottom: 2mm;
-        display: block;
-    }
-    .comp-title::after {
-        content: "";
-        display: block;
-        width: 40mm;
-        height: 2px;
-        background: var(--accent-gold);
-        margin: 1mm auto 0;
-    }
-
-    .comp-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        font-size: 9.5pt;
-        margin-bottom: 2mm;
-    }
-    .comp-table th, .comp-table td {
-        padding: 2.5mm 1mm;
-        text-align: center;
-        vertical-align: middle;
-        border-bottom: 1px solid var(--table-border);
-        border-right: 1px solid var(--table-border);
-    }
-    .comp-table th {
-        background: #eaeaea;
-        color: #444;
-        font-weight: 700;
-        width: 18%;
-        border-top: 1px solid var(--table-border);
-        border-left: 1px solid var(--table-border);
-    }
-    .comp-table .other-col {
-        color: #666;
-        width: 41%;
-        background: #fafafa;
-        border-top: 1px solid var(--table-border);
-    }
-    .comp-table .ark-col {
-        background: var(--ark-highlight-bg);
-        color: var(--primary);
-        font-weight: 700;
-        width: 41%;
-        border-right: 2px solid var(--primary);
-        border-left: 2px solid var(--primary);
-        position: relative;
-    }
-    .comp-table thead th.ark-header {
-        background: var(--primary);
-        color: white;
-        border: 2px solid var(--primary);
-        border-bottom: none;
-        font-size: 11pt;
-        padding: 3mm 0;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    }
-    .comp-table tbody tr:last-child .ark-col {
-        border-bottom: 2px solid var(--primary);
-    }
-    .comp-table tbody tr .ark-col {
-        border-bottom: 1px solid #cbd5e1;
-    }
-
-    .highlight-text {
-        color: var(--highlight-red);
-        font-weight: 900;
-        font-size: 11pt;
-        display: block;
-    }
-    .sub-text {
-        font-size: 7.5pt;
-        font-weight: normal;
-        display: block;
-        margin-top: 1px;
-    }
-
-    /* 表面フッターCTA */
-    .cta-container-split {
-        display: flex;
-        height: 38mm;
-        border-top: 5px solid var(--accent-gold);
-        background: white;
-        margin-top: auto;
-    }
-    .cta-line {
-        flex: 1.8;
-        background: var(--line-bg);
-        padding: 0 4mm;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-right: 1px solid #ddd;
-        position: relative;
-    }
-    .line-badge {
-        background: var(--line-green);
-        color: white;
-        padding: 1mm 3mm;
-        font-size: 8pt;
-        border-radius: 4px;
-        position: absolute;
-        top: 3mm;
-        left: 3mm;
-        font-weight: bold;
-    }
-    .line-content {
-        display: flex;
-        align-items: center;
-        gap: 4mm;
-        width: 100%;
-        justify-content: center;
-    }
-    .line-text h2 { 
-        color: #00b900; 
-        font-size: 13pt; 
-        margin-bottom: 1px; 
-        font-weight:900; 
-        line-height: 1.1;
-    }
-    .cta-web {
-        flex: 1;
-        background: var(--primary);
-        color: white;
-        padding: 2mm;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    /* ================= 裏面 ================= */
-
-    /* 裏面ヘッダー */
-    .header-back {
-        background: var(--bg-gray);
-        padding: 4mm 10mm;
-        border-bottom: 3px solid var(--primary);
-        flex-shrink: 0;
-        text-align: center;
-        position: relative;
-    }
-    .header-back-badge {
-        position: absolute;
-        top: 2mm;
-        left: 2mm;
-        background: var(--accent-gold);
-        color: white;
-        font-size: 7.5pt;
-        padding: 1mm 3mm;
-        font-weight: bold;
-        border-radius: 2px;
-    }
-    .header-back h2 {
-        color: var(--primary);
-        font-size: 16pt;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-    }
-
-    /* 裏面コンテンツエリア */
-    .content-back {
-        padding: 4mm 10mm 0;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* プロフィール */
-    .profile-section {
-        display: flex;
-        gap: 4mm;
-        margin-bottom: 4mm;
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 3mm;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .profile-left {
-        width: 24%;
-        flex-shrink: 0;
-        text-align: center;
-    }
-    .profile-img-box {
-        width: 100%;
-        height: 28mm;
-        background: #ccc;
-        margin-bottom: 1mm;
-        overflow: hidden;
-    }
-    .profile-img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-name { font-size: 10pt; font-weight: 900; color: var(--primary); line-height: 1; }
-    .profile-role { font-size: 7pt; color: #666; font-weight: bold; }
-
-    .profile-right {
-        width: 76%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-    }
-    .profile-catch {
-        font-size: 10.5pt;
-        font-weight: 900;
-        color: var(--primary);
-        margin-bottom: 1.5mm;
-        border-left: 4px solid var(--accent-gold);
-        padding-left: 2mm;
-        line-height: 1.3;
-        letter-spacing: -0.02em;
-    }
-    /* 紹介文のサイズアップ */
-    .profile-desc {
-        font-size: 9pt; /* サイズアップ */
-        line-height: 1.5;
-        text-align: justify;
-        color: #333;
-        font-weight: 500;
-    }
-    .profile-history {
-        margin-top: 1mm;
-        font-size: 8.5pt;
-        font-weight: 700;
-        color: var(--primary);
-        background: #f0f4f8;
-        padding: 1mm 2mm;
-        display: inline-block;
-        align-self: flex-start;
-    }
-
-    /* 費用比較（表形式・リッチ化） */
-    .fee-section {
-        margin-bottom: 3mm;
-        border: 2px solid var(--primary);
-        padding: 2mm 3mm;
-        background: #fff;
-    }
-    /* 追加メッセージ */
-    .fee-highlight-msg {
-        text-align: center;
-        background: var(--highlight-red);
-        color: white;
-        font-weight: 900;
-        font-size: 10pt;
-        padding: 1mm;
-        margin: -2mm -3mm 2mm -3mm; /* 枠いっぱいに広げる */
-        display: block;
-    }
-
-    .fee-title {
-        background: var(--primary);
-        color: white;
-        display: table;
-        margin: 0 auto 2mm;
-        padding: 1mm 6mm;
-        font-weight: 900;
-        font-size: 10.5pt;
-    }
-    
-    .fee-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 9pt;
-    }
-    .fee-table th, .fee-table td {
-        border: 1px solid #ddd;
-        padding: 1.5mm 1mm;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .fee-table th {
-        background: #f5f5f5;
-        color: #555;
-        font-weight: 700;
-        width: 20%;
-        font-size: 8.5pt;
-    }
-    
-    .fee-col-other {
-        background: #fdfdfd;
-        width: 38%;
-        color: #666;
-    }
-    .fee-col-ark {
-        background: #fffbeb;
-        width: 42%;
-        color: var(--primary);
-        font-weight: 700;
-        border-left: 2px solid var(--primary);
-        border-right: 2px solid var(--primary);
-    }
-    
-    .fee-header-ark {
-        background: var(--primary) !important;
-        color: white !important;
-        font-size: 10.5pt;
-        padding: 2mm !important;
-        border: 2px solid var(--primary);
-        border-bottom: none;
-    }
-    
-    .price-strike {
-        text-decoration: line-through;
-        font-size: 7.5pt;
-        color: #999;
-        display: block;
-        line-height: 1;
-    }
-    .price-zero {
-        color: var(--highlight-red);
-        font-size: 10.5pt;
-        font-weight: 900;
-    }
-    
-    .total-row td {
-        border-top: 2px solid #999;
-        padding: 3mm 1mm;
-        background: #fff;
-    }
-    .total-row .fee-col-ark {
-        border-bottom: 2px solid var(--primary);
-        background: #fff7d6;
-    }
-    .total-label {
-        font-weight: 900;
-        color: #333;
-        font-size: 9pt;
-    }
-    .total-price-other {
-        font-size: 11pt;
-        font-weight: 700;
-        color: #666;
-    }
-    .total-price-ark {
-        font-size: 16pt;
-        font-weight: 900;
-        color: var(--highlight-red);
-        display: block;
-        line-height: 1;
-        letter-spacing: -0.05em;
-    }
-    .total-desc {
-        font-size: 7.5pt;
-        font-weight: normal;
-        margin-top: 1px;
-        display: block;
-        color: var(--primary);
-    }
-
-    /* 合格実績（ボリューム感アップ） */
-    .results-container {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1mm;
-    }
-    .results-title {
-        font-size: 11pt;
-        font-weight: 900;
-        color: var(--primary);
-        border-bottom: 2px solid var(--primary);
-        margin-bottom: 2mm;
-        display: inline-block;
-        padding-right: 10px;
-    }
-    
-    /* プレミアム校のグリッド */
-    .univ-grid-rich {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.5mm;
-        margin-bottom: 2mm;
-    }
-    .univ-box {
-        border: 1px solid #ccc;
-        padding: 1mm;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 10mm; /* 高さアップ */
-        background: #fff;
-    }
-    .univ-box.premium {
-        background: var(--primary);
-        color: white;
-        border: none;
-        box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
-    .univ-name {
-        font-size: 8.5pt; /* サイズアップ */
-        font-weight: 900;
-        line-height: 1;
-    }
-    .univ-rank {
-        font-size: 6pt;
-        opacity: 0.8;
-        margin-bottom: 0.5mm;
-        display: block;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    /* その他リスト（ボリューム感演出） */
-    .univ-list-rich {
-        font-size: 8pt; /* サイズアップ */
-        color: #333;
-        line-height: 1.6;
-        text-align: justify;
-        border-top: 1px dashed #ccc;
-        padding-top: 2mm;
-        font-weight: 500;
-    }
-    .univ-tag {
-        display: inline-block;
-        background: #f0f4f8;
-        border: 1px solid #ddd;
-        border-radius: 2px;
-        padding: 0 3px;
-        margin: 0 1px 2px 0;
-        font-size: 7.5pt;
-    }
-    .category-label {
-        font-weight: 900;
-        color: var(--primary);
-        margin-right: 2px;
-    }
-
-    /* 裏面フッターCTA - ページ下部固定 */
-    .footer-cta-back {
-        height: 35mm;
-        background: linear-gradient(to bottom, #fff, #e8f5e9);
-        border-top: 3px solid var(--line-green);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5mm;
-        margin-top: auto;
-        padding: 0 5mm;
-    }
-    .line-btn-large {
-        background: var(--line-green);
-        color: white;
-        font-weight: 700;
-        padding: 1.5mm 6mm;
-        border-radius: 50px;
-        font-size: 11pt;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        display: inline-block;
-        margin-top: 1mm;
-    }
-
-    .footer {
-        background: var(--primary);
-        color: white;
-        text-align: center;
-        padding: 1.5mm 0;
-        font-size: 6.5pt;
-        flex-shrink: 0;
-    }
-
-    @media print {
-        body { background: white; }
-        .page { margin: 0; box-shadow: none; page-break-after: always; height: 297mm; }
-    }
-</style>
+        /* Header/Footer for content pages */
+        .page-header {
+            position: absolute;
+            top: 15mm;
+            left: 15mm;
+            right: 15mm;
+            height: 10mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 15mm;
+            right: 15mm;
+            text-align: center;
+            font-size: 9pt;
+            color: #888;
+        }
+        .content-area {
+            margin-top: 30mm;
+            margin-left: 15mm;
+            margin-right: 15mm;
+            margin-bottom: 20mm;
+            height: calc(297mm - 50mm);
+        }
+        
+        .accent-block {
+            border-left: 3px solid var(--color-gold);
+            padding-left: 1rem;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="page">
-        <div class="header">
-            <div class="online-badge">完全オンライン・全国対応</div>
-            <span class="target-msg serif">大田区山王エリアの保護者様へ</span>
-            <h1 class="main-title serif heavy">「戦略」で勝ち取る、<br>憧れの難関大学。</h1>
-            <div class="sub-title">総合型選抜（AO入試）専門塾 アークカレッジ</div>
+    <!-- Print Guide (Hidden on Print) -->
+    <div class="no-print fixed top-0 left-0 w-full bg-navy text-white p-4 z-50 shadow-lg flex justify-between items-center opacity-90 hover:opacity-100 transition-opacity">
+        <div class="text-sm">
+            <i class="fa-solid fa-print text-gold mr-2"></i>
+            <strong>印刷・PDF保存のヒント:</strong> 「背景のグラフィック」を有効にし、「余白：なし」に設定してください。
+        </div>
+        <button onclick="window.print()" class="bg-gold text-navy px-4 py-1 rounded font-bold hover:bg-white transition-colors text-sm">
+            印刷する / PDF保存
+        </button>
+    </div>
+    <div class="no-print h-12"></div> <!-- Spacer -->
+
+    <!-- P1: Cover -->
+    <div class="page bg-navy text-white relative">
+        <!-- Abstract Decoration -->
+        <div class="absolute inset-0 overflow-hidden">
+            <svg class="absolute top-0 right-0 text-white opacity-5 w-[600px] h-[600px] -mr-32 -mt-32" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5">
+                <circle cx="50" cy="50" r="40" />
+                <circle cx="50" cy="50" r="30" />
+                <line x1="50" y1="0" x2="50" y2="100" />
+                <line x1="0" y1="50" x2="100" y2="50" />
+                <line x1="15" y1="15" x2="85" y2="85" />
+                <line x1="15" y1="85" x2="85" y2="15" />
+            </svg>
         </div>
 
-        <div class="visual-area">
-            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Students" class="main-visual-img">
-        </div>
-
-        <div class="achievement-bar serif heavy">
-            <span class="achievement-text">
-                第一志望合格率 86.7%<span style="font-size:0.6em; font-weight:normal; margin-left:-5px;">※</span>
-                <span style="font-size:0.7em; margin-left:10px; font-weight:600;">慶應・早稲田・上智・MARCH多数</span>
-            </span>
-        </div>
-
-        <div class="content-front">
-            <div class="catch-copy serif">
-                お子様の可能性、<br>
-                偏差値だけで諦めていませんか？
+        <div class="flex flex-col justify-center items-center h-full z-10 p-12 text-center">
+            <!-- Logo Image Placeholder -->
+            <div class="mb-16">
+                <!-- 【画像差し替え箇所】ここにロゴ画像のURLを指定してください。背景透過のPNG推奨 -->
+                    <img src="logo.png" 
+                     alt="Ark College Logo" 
+                     class="w-40 h-40 object-contain mx-auto mb-4 rounded-xl bg-navy-light/50 backdrop-blur-sm border border-gold/30 p-4">
+                
+                <h1 class="text-3xl tracking-[0.2em] font-light mt-4">ARK COLLEGE</h1>
             </div>
-            <p class="intro-text">
-                今、大学入試の景色が変わっています。一般入試のような「暗記」ではなく、お子様の「思考力」と「意欲」を評価する<strong>総合型選抜</strong>。難関大学への扉は、実は「戦略」次第で大きく開かれています。
-            </p>
 
-            <div class="comparison-section">
-                <span class="comp-title serif">なぜ、アークカレッジが選ばれるのか？</span>
-                <table class="comp-table">
-                    <thead>
-                        <tr>
-                            <th>項目</th>
-                            <th class="ark-header">Ark College</th>
-                            <th style="background:#eaeaea; border-top:1px solid #d1d5db;">一般的な<br>大手総合型塾</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>指導者</th>
-                            <td class="ark-col">
-                                外資出身の完全プロ講師<br>
-                                <span class="sub-text">(学生バイト一切なし)</span>
-                            </td>
-                            <td class="other-col">
-                                大学生アルバイト講師<br>
-                                <span class="sub-text">(指導力にバラつきあり)</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>戦略性</th>
-                            <td class="ark-col">
-                                <span class="highlight-text">合格からの逆算思考</span>
-                                <span class="sub-text">(精密なマッチング戦略)</span>
-                            </td>
-                            <td class="other-col">
-                                テンプレート的な指導<br>
-                                <span class="sub-text">(個性が埋没しやすい)</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>人数</th>
-                            <td class="ark-col">
-                                <span class="highlight-text">1学年6名限定</span>
-                                <span class="sub-text">(完全審査制・徹底指導)</span>
-                            </td>
-                            <td class="other-col">
-                                数十名〜数百名<br>
-                                <span class="sub-text">(大量生産型・教室指導)</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="border-bottom:1px solid #d1d5db;">添削</th>
-                            <td class="ark-col">
-                                <span class="highlight-text">無制限・48H返信</span>
-                            </td>
-                            <td class="other-col" style="border-bottom:1px solid #d1d5db;">回数制限あり・返信遅延</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Title -->
+            <div class="mb-12 relative w-full">
+                <div class="h-[1px] w-1/3 bg-gold mx-auto mb-6 opacity-50"></div>
+                <h2 class="text-4xl serif font-medium mb-2 leading-tight">総合型選抜<br>プロフェッショナル・ファーム</h2>
+                <p class="text-gold tracking-widest text-sm uppercase">大学受験戦略コンサルティング</p>
+                <div class="h-[1px] w-1/3 bg-gold mx-auto mt-6 opacity-50"></div>
             </div>
-        </div>
 
-        <div class="cta-container-split">
-            <div class="cta-line">
-                <span class="line-badge">まずはここから</span>
-                <div class="line-content">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lin.ee/JzuzVVn" alt="LINE QR" width="80" height="80" style="border:1px solid #ccc; background:white; padding:2px;">
-                    <div class="line-text" style="text-align:left; margin-left:3mm;">
-                        <h2 class="serif">無料「合格戦略」個別診断</h2>
-                        <p style="color:#06C755; font-size:9pt; font-weight:bold;">◀ LINEで簡単予約！</p>
-                        <p style="font-size:8pt; font-weight:normal;">「チラシを見た」と送信</p>
-                    </div>
-                </div>
+            <!-- Catchcopy -->
+            <div class="mt-8">
+                <p class="text-lg leading-loose serif opacity-90">
+                    受験のその先へ。<br>
+                    1学年6人限定。<br>
+                    プロフェッショナル・ファームとしての<br>
+                    大学受験指導。
+                </p>
             </div>
-            <div class="cta-web">
-                <p style="font-size:8.5pt; margin-bottom:1mm; font-weight:bold;">▼ 公式サイト</p>
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.ark-college-lp.com/" alt="LP QR" width="60" height="60" style="background:white; padding:2px;">
-                <p style="font-size:7.5pt; margin-top:1mm;">Webで詳しく見る</p>
+
+            <!-- URL -->
+            <div class="absolute bottom-12 text-xs tracking-widest opacity-60">
+                https://forms.gle/rbWA7wUD6Uw1dG76A
             </div>
         </div>
     </div>
 
+    <!-- P2: Paradigm Shift -->
     <div class="page">
-        <div class="header-back">
-            <div class="header-back-badge">完全オンライン・深夜対応可能</div>
-            <h2 class="serif">「合格」と「社会で通用する力」を両立させる。</h2>
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Philosophy</span>
         </div>
 
-        <div class="content-back">
+        <!-- 修正: justify-between を削除し、gap-12 で間隔を調整して上詰めに配置 -->
+        <div class="content-area flex flex-col gap-12">
+            <!-- Section 01 -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">01.</span> 教育のパラダイムシフト
+                </h2>
+                <div class="flex gap-8 mb-6">
+                    <div class="w-1/2 p-4 bg-gray-50 border-l-2 border-gray-300">
+                        <h4 class="text-sm font-bold text-gray-500 mb-2">Old Standard (〜2020)</h4>
+                        <p class="text-lg font-serif mb-2 text-gray-600">知識の量 × 処理速度</p>
+                        <p class="text-xs text-justify leading-relaxed text-gray-500">
+                            かつての高度経済成長期、均質で質の高い労働力を確保するためには「正解を速く正確に導き出す能力（偏差値）」が最適解でした。
+                        </p>
+                    </div>
+                    <div class="flex items-center text-gold text-2xl">
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </div>
+                    <div class="w-1/2 p-4 bg-navy-light text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 text-gold opacity-10 text-6xl"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h4 class="text-sm font-bold text-gold mb-2">New Standard (2020〜)</h4>
+                        <p class="text-lg font-serif mb-2">知の活用 × 創造性</p>
+                        <p class="text-xs text-justify leading-relaxed opacity-90">
+                            AIの台頭やVUCA時代。予測不可能な社会においては、知識をどう使い、誰と協働し、何を創り出すかが問われます。
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 class="text-lg font-bold mb-3 accent-block">高大接続改革と学力の3要素</h3>
+                <div class="grid grid-cols-3 gap-4 mb-4 text-center text-sm">
+                    <div class="border border-gray-200 p-3 rounded">
+                        <div class="text-navy font-bold mb-1">①知識・技能</div>
+                        <div class="text-xs text-gray-500">基礎的リテラシー</div>
+                    </div>
+                    <div class="bg-navy text-white p-3 rounded shadow-md relative">
+                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gold text-navy text-[10px] px-2 py-0.5 rounded-full font-bold w-max">総合型選抜の主戦場</div>
+                        <div class="font-bold mb-1">②思考・判断・表現</div>
+                        <div class="text-xs opacity-80">論理的対話力</div>
+                    </div>
+                    <div class="bg-navy text-white p-3 rounded shadow-md">
+                        <div class="font-bold mb-1">③主体性・協働性</div>
+                        <div class="text-xs opacity-80">多様な人々との協働</div>
+                    </div>
+                </div>
+                <p class="text-sm leading-relaxed">
+                    もはや総合型選抜は「一芸入試」や「楽な入試」ではなく、<strong class="bg-yellow-100 px-1">最も現代社会のニーズに即した、知的な選抜方式</strong>へと進化しています。
+                </p>
+            </section>
+
+            <!-- Section 02 -->
+            <section class="pt-8 border-t border-dashed border-gray-300">
+                <h2 class="text-2xl serif text-navy mb-2 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">02.</span> 「大学入試の先」で、一生通用する力を。
+                </h2>
+                <p class="text-[10px] text-gray-500 mb-4 font-serif tracking-wide">
+                    ――国際指標「Education 2030」が定義する、新しい学びの形――
+                </p>
+
+                <p class="text-xs leading-relaxed text-justify mb-5 text-navy">
+                    世界的な教育指針「Education 2030」が掲げるのは、正解のない未来を自ら切り拓く力、<strong class="bg-yellow-100 px-1">「エージェンシー（当事者意識）」の育成</strong>です。AI時代、かつての暗記型学習は価値を失いました。今、入試や社会で評価されるのは、机上の空論ではなく<strong class="border-b border-gold">「現実を動かす力」</strong>です。<br>
+                    Ark Collegeでは、この理念に基づき3つの次世代スキルを磨きます。
+                </p>
+
+                <div class="grid grid-cols-3 gap-3 mb-5">
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-clipboard-question"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">1. 問いを立てる力</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Problem Posing</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            ネットに答えがある時代、価値を持つのは「問い」そのものです。常識を疑い、自分なりの視点で課題を見つける力は、志望理由書や研究の源泉となります。
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-rocket"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">2. 実践的な行動力</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Authentic Action</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            「言わされた言葉」ではなく、社会と関わる実体験から学びます。失敗を恐れず挑戦する「本物の経験」こそが、面接官の心を動かす唯一無二の言葉を生みます。
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">3. 協調と調和の力</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Orchestration</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            一人で完結せず、多様な他者と対話して新たな価値を創る力です。このスキルは、グループディスカッションや入学後のプロジェクト学習で決定的な差となります。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-navy-light text-white p-4 rounded text-center shadow-lg border-l-4 border-gold">
+                    <p class="text-xs font-bold mb-1">総合型選抜対策は、一生モノの「武器」を手に入れる訓練です。</p>
+                    <p class="text-[10px] opacity-80 font-light">
+                        大学合格を通過点とし、その先の人生を自力で輝かせ続ける力を、共に育みましょう。
+                    </p>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 02 | Ark College Brochure</div>
+    </div>
+
+    <!-- P3: Market Trends -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Market Insight</span>
+        </div>
+
+        <div class="content-area">
+            <!-- Section 03 -->
+            <section class="mb-10">
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">03.</span> 入試トレンド：数字で見る「年内入試」
+                </h2>
+                
+                <div class="flex items-center gap-8 mb-6 bg-gray-50 p-6 rounded-xl">
+                    <div class="w-1/3 relative text-center">
+                        <div class="w-32 h-32 rounded-full border-8 border-navy mx-auto flex items-center justify-center relative z-10 bg-white">
+                            <span class="text-3xl font-bold text-navy">50.7<span class="text-base">%</span></span>
+                        </div>
+                        <p class="mt-2 text-xs font-bold text-navy">推薦・総合型での入学者<br>(令和5年度)</p>
+                    </div>
+                    <div class="w-2/3 space-y-3">
+                        <div class="flex items-center">
+                            <span class="w-24 text-xs font-bold bg-navy text-white px-2 py-1 mr-3 text-center">早稲田大学</span>
+                            <span class="text-sm">一般選抜を4割へ縮小、総合型・推薦を6割へ。</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-24 text-xs font-bold bg-navy text-white px-2 py-1 mr-3 text-center">国立大学</span>
+                            <span class="text-sm">推薦・総合型の定員を30%へ拡大する方針。</span>
+                        </div>
+                        <div class="p-3 border border-gold bg-yellow-50 text-xs text-navy mt-2">
+                            <i class="fa-solid fa-triangle-exclamation text-gold mr-1"></i>
+                            <span class="font-bold">結論：</span>難関校ほど「共通テストでは測れない異能の才」を求めています。「一般選抜一本」はリスクであり、総合型活用は合格可能性を最大化する合理的戦略です。
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 04 -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">04.</span> 総合型選抜の構造 (Matching)
+                </h2>
+
+                <div class="flex gap-4 mb-8">
+                    <!-- General Admission -->
+                    <div class="w-1/2 border border-gray-200 p-4">
+                        <h4 class="text-center font-serif border-b pb-2 mb-3 text-gray-500">一般選抜</h4>
+                        <ul class="text-sm space-y-2 text-gray-500">
+                            <li class="flex justify-between"><span>評価基準</span> <span class="font-bold">結果（点数）</span></li>
+                            <li class="flex justify-between"><span>競争原理</span> <span class="font-bold">相対評価</span></li>
+                            <li class="flex justify-between"><span>性質</span> <span class="font-bold">椅子取りゲーム</span></li>
+                        </ul>
+                    </div>
+                    <!-- Comprehensive Admission -->
+                    <div class="w-1/2 border-2 border-navy bg-navy-light/5 p-4 relative">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-navy text-white px-3 py-1 text-xs">Ark College Domain</div>
+                        <h4 class="text-center font-serif border-b border-navy pb-2 mb-3 text-navy font-bold">総合型選抜</h4>
+                        <ul class="text-sm space-y-2 text-navy">
+                            <li class="flex justify-between"><span>評価基準</span> <span class="font-bold">プロセス（志）</span></li>
+                            <li class="flex justify-between"><span>競争原理</span> <span class="font-bold">絶対評価</span></li>
+                            <li class="flex justify-between"><span>性質</span> <span class="font-bold">お見合い（Matching）</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-sm font-bold mb-3 flex items-center"><i class="fa-solid fa-layer-group text-gold mr-2"></i> 合否を決める4つの評価レイヤー</h3>
+                <div class="space-y-2">
+                    <div class="bg-navy text-white p-3 flex items-center justify-between rounded shadow-lg transform translate-x-4">
+                        <span class="font-serif">04. 実行力 (Execution)</span>
+                        <span class="text-xs bg-gold text-navy px-2 py-0.5">実績の積み上げ・活動歴</span>
+                    </div>
+                    <div class="bg-navy-light text-white p-3 flex items-center justify-between rounded shadow-md transform translate-x-3 opacity-90">
+                        <span class="font-serif">03. 論理的思考力 (Logic)</span>
+                        <span class="text-xs border border-white px-2 py-0.5">社会課題分析・小論文</span>
+                    </div>
+                    <div class="bg-gray-600 text-white p-3 flex items-center justify-between rounded shadow-sm transform translate-x-2 opacity-80">
+                        <span class="font-serif">02. 基礎学力 (Academic)</span>
+                        <span class="text-xs bg-gray-500 px-2 py-0.5">評定平均・語学資格</span>
+                    </div>
+                    <div class="bg-red-800 text-white p-3 flex items-center justify-between rounded transform translate-x-1">
+                        <span class="font-serif">01. 熱意 (Passion)</span>
+                        <span class="text-xs border border-white px-2 py-0.5">志望動機・原体験</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 03 | Ark College Brochure</div>
+    </div>
+
+    <!-- P4: Roadmap -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Strategy & Roadmap</span>
+        </div>
+
+        <div class="content-area">
+            <!-- University Specifics -->
+            <section class="mb-8">
+                <h2 class="text-2xl serif text-navy mb-4 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">05.</span> 大学群別対策のポイント
+                </h2>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="border-t-2 border-navy pt-3">
+                        <h3 class="font-serif text-lg mb-2">早慶上智</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            <span class="font-bold text-navy">慶應SFC</span>は「未来創造と解決案」、<span class="font-bold text-navy">早稲田</span>は「学部ごとの独自性」、<span class="font-bold text-navy">上智</span>は「他者貢献と国際性」が鍵。高いビジョンが求められる。
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-gold pt-3">
+                        <h3 class="font-serif text-lg mb-2">GMARCH</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            <span class="font-bold text-navy">立教</span>は「リーダーシップ」、<span class="font-bold text-navy">中央</span>は「論理的思考力」、<span class="font-bold text-navy">青学</span>は「特技の学問的昇華」。大学のカラーとの合致度が重要。
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-gray-400 pt-3">
+                        <h3 class="font-serif text-lg mb-2">国公立</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            共通テスト8割を前提とした「研究者としての素養」。アカデミックな探究心と基礎学力の両立が必須要件。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-8 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">06.</span> 合格へのロードマップ
+                </h2>
+                
+                <div class="relative">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200"></div>
+
+                    <!-- Steps -->
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-white border-2 border-navy text-navy font-bold flex items-center justify-center text-sm z-10">01</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">種まき期 <span class="text-sm font-sans text-gray-500 ml-2">高1〜高2</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-gray-300">
+                            <p class="text-sm font-bold mb-1">インプットと自己分析</p>
+                            <p class="text-xs text-gray-600">興味分野の読書、評定維持、課外活動への参加。「自分が何に夢中になれるか」を探す期間。</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-white border-2 border-navy text-navy font-bold flex items-center justify-center text-sm z-10">02</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">志望校選定 <span class="text-sm font-sans text-gray-500 ml-2">高3 春 (4-6月)</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-navy">
+                            <p class="text-sm font-bold mb-1">ストーリー構築</p>
+                            <p class="text-xs text-gray-600">「なぜその大学か？」を徹底的に問う。過去と未来を接続し、必然性のある志望理由の骨子を作る。</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-navy border-2 border-navy text-white font-bold flex items-center justify-center text-sm z-10">03</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">書類作成 <span class="text-sm font-sans text-gray-500 ml-2">高3 夏 (7-8月)</span></h4>
+                        <div class="bg-navy-light/10 p-4 rounded border-l-4 border-gold">
+                            <p class="text-sm font-bold mb-1 text-navy">言語化と推敲</p>
+                            <p class="text-xs text-gray-800">志望理由書の作成。20回以上の書き直しが標準。第三者の視点を入れ、論理の穴を塞ぐ。</p>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-gold border-2 border-gold text-white font-bold flex items-center justify-center text-sm z-10">04</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">二次試験対策 <span class="text-sm font-sans text-gray-500 ml-2">高3 秋 (9-11月)</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-gray-300">
+                            <p class="text-sm font-bold mb-1">アウトプット特訓</p>
+                            <p class="text-xs text-gray-600">小論文、プレゼンテーション、面接対策。想定問答を超えた「対話力」を磨く。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 04 | Ark College Brochure</div>
+    </div>
+
+    <!-- P5: About Ark (Navy Page) -->
+    <div class="page bg-navy text-white relative">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#D4AF37 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="content-area flex flex-col justify-center h-full relative z-10">
+            <div class="text-center mb-12">
+                <div class="text-gold tracking-widest text-sm mb-4 uppercase">Ark College</div>
+                <h2 class="text-4xl serif font-light mb-6">1学年6名限定。<br>戦略で難関大合格を。</h2>
+                <div class="w-16 h-1 bg-gold mx-auto mb-8"></div>
+                <p class="text-lg font-light opacity-90">総合型選抜専門・完全オンライン私塾</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mb-16 text-center">
+                <div class="p-4 border border-white/20 rounded backdrop-blur-sm">
+                    <div class="text-3xl font-serif text-gold mb-2">92.3<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">First Choice<br>一次通過率</div>
+                </div>
+                <div class="p-4 border border-gold/50 rounded bg-gold/10 backdrop-blur-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gold text-navy text-[10px] px-2 py-0.5 font-bold">High Achievement</div>
+                    <div class="text-3xl font-serif text-gold mb-2">86.7<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">First Choice<br>最終合格率</div>
+                </div>
+                <div class="p-4 border border-white/20 rounded backdrop-blur-sm">
+                    <div class="text-3xl font-serif text-gold mb-2">96.7<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">University<br>進学先確保率</div>
+                </div>
+            </div>
+
+            <div class="px-8">
+                <p class="text-sm leading-8 text-justify opacity-80 font-light">
+                    総合型選抜は、単なる「作文コンクール」ではありません。大学のアドミッション・ポリシーを深く読み解き、あなたの過去・現在・未来というポテンシャルと合致させる、極めて高度なマッチング戦略が必要です。<br><br>
+                    Ark Collegeは、大量生産型の塾ではありません。「どうしても合格したい」と願うご家庭のためだけに存在する、少数精鋭の<span class="text-gold font-bold">プロフェッショナル・ファーム</span>です。
+                </p>
+            </div>
             
-            <div class="profile-section">
-                <div class="profile-left">
-                    <div class="profile-img-box">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80" alt="Noah M" class="profile-img">
-                    </div>
-                    <div class="profile-name serif">Noah. M</div>
-                    <div class="profile-role">アークカレッジ代表</div>
-                </div>
-                <div class="profile-right">
-                    <div class="profile-catch serif">
-                        大学合格は「ゴール」ではなく「通過点」。<br>
-                        一生モノの思考力を鍛えます。
-                    </div>
-                    <div class="profile-desc">
-                        <span class="bold">慶應義塾大学法学部法律学科卒。</span><br>
-                        慶應義塾大学法学部FIT入試A・B両方式で現役ダブル合格した経験をもとに、総合型選抜(AO入試)の指導分野に参画。大手塾「洋々」では4年間にわたりメンター講師として在籍。<br>
-                        さらに、大手外資系企業でマーケターとして勤務。市場分析、戦略立案、高い論理的思考力を実務を通じて培う。
-                    </div>
-                    <span class="profile-history">担当生徒50名以上 / 国公立・早慶上智・ICUなど合格多数</span>
-                </div>
+            <div class="mt-16 text-center">
+                <i class="fa-solid fa-anchor text-gold text-2xl opacity-50"></i>
             </div>
+        </div>
+    </div>
 
-            <div class="fee-section">
-                <div class="fee-highlight-msg">総額で見ると確実にオトクなオプションになります</div>
-                
-                <div class="center"><div class="fee-title">年間トータル費用比較 (高3生目安)</div></div>
-                <table class="fee-table">
-                    <thead>
-                        <tr>
-                            <th>費目</th>
-                            <th class="fee-col-other">一般的な大手塾</th>
-                            <th class="fee-header-ark">Ark College</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>入会金</td>
-                            <td class="fee-col-other">33,000円〜</td>
-                            <td class="fee-col-ark">
-                                <span class="price-strike">33,000円</span>
-                                <span class="price-zero">0円 (無料)</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>季節講習</td>
-                            <td class="fee-col-other">別途 20〜50万円</td>
-                            <td class="fee-col-ark">
-                                <span class="price-zero">0円 (込み)</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>直前対策</td>
-                            <td class="fee-col-other">別途 10〜30万円</td>
-                            <td class="fee-col-ark">
-                                <span class="price-zero">0円 (込み)</span>
-                            </td>
-                        </tr>
-                        <tr class="total-row">
-                            <td class="total-label">年間合計</td>
-                            <td class="fee-col-other">
-                                <span class="total-price-other">約150万円〜</span>
-                                <span style="font-size:7pt; display:block;">(積み上げ式)</span>
-                            </td>
-                            <td class="fee-col-ark">
-                                <span class="total-price-ark">約77万円〜</span>
-                                <span class="total-desc">月額換算 8.5万円〜<br>追加費用なし</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="results-container">
-                <div class="results-title serif">主な合格実績 (一部抜粋)</div>
-                
-                <div class="univ-grid-rich">
-                    <div class="univ-box premium">
-                        <span class="univ-rank">National</span>
-                        <span class="univ-name">一橋大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">National</span>
-                        <span class="univ-name">筑波大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">慶應義塾大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">早稲田大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">上智大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">ICU</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">青山学院大学</span>
-                    </div>
-                    <div class="univ-box premium">
-                        <span class="univ-rank">Private</span>
-                        <span class="univ-name">立教大学</span>
-                    </div>
-                </div>
-                
-                <div class="univ-list-rich">
-                    <span class="category-label">[国公立]</span>
-                    <span class="univ-tag">お茶の水女子大</span><span class="univ-tag">横浜国立大</span><span class="univ-tag">香川大</span><span class="univ-tag">福島大</span>
-                    <br>
-                    <span class="category-label">[私立]</span>
-                    <span class="univ-tag">明治</span><span class="univ-tag">中央</span><span class="univ-tag">法政</span><span class="univ-tag">学習院</span><span class="univ-tag">同志社</span><span class="univ-tag">関西学院</span><span class="univ-tag">立命館</span><span class="univ-tag">関西</span><span class="univ-tag">成蹊</span><span class="univ-tag">明治学院</span><span class="univ-tag">南山</span><span class="univ-tag">APU</span><span class="univ-tag">東京女子</span><span class="univ-tag">日本女子</span><span class="univ-tag">東洋</span><span class="univ-tag">近畿</span><span class="univ-tag">城西</span><span class="univ-tag">明星</span><span class="univ-tag">帝京</span> 他多数
-                </div>
-            </div>
-
+    <!-- P6: Reasons & Skills -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Why Ark College?</span>
         </div>
 
-        <div class="footer-cta-back">
-             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://lin.ee/JzuzVVn" alt="LINE QR" width="60" height="60" style="border:1px solid #ccc;">
-             <div style="text-align:left;">
-                 <h3 class="serif bold" style="color:var(--primary); font-size:12pt; margin-bottom:1mm;">春の入塾・無料相談 受付中</h3>
-                 <p style="font-size:7.5pt; margin:0; font-weight:bold;">ID: @ark_college / 「チラシを見た」と送信</p>
-                 <div class="line-btn-large">LINEでお問い合わせ</div>
-             </div>
+        <div class="content-area">
+            <h2 class="text-2xl serif text-navy mb-6 text-center">選ばれる4つの理由</h2>
+
+            <div class="grid grid-cols-2 gap-5 mb-6">
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-regular fa-compass absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 01</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">受験戦略コンサルティング</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            生徒のポテンシャル×志望校特性。「合格可能性を極限まで高める併願戦略」と「評価されるストーリー設計」をプロが立案します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-solid fa-pen-nib absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 02</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">完全個別カリキュラム</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            バイト講師ゼロ。代表講師が直接設計。画一的なテキストではなく、志望校・能力・性格に合わせた完全オーダーメイドです。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-regular fa-comments absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 03</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">添削・相談無制限</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            24時間365日対応。Slackで原則48時間以内に返信。深夜でも早朝でも、受験生の不安を即座に受け止めます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-navy p-5 rounded-lg relative overflow-hidden text-white">
+                    <i class="fa-solid fa-graduation-cap absolute -bottom-4 -right-4 text-7xl text-navy-light opacity-50"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 04</div>
+                        <h3 class="font-bold mb-2 text-sm">一生使える「6つのソフトスキル」</h3>
+                        <p class="text-[11px] opacity-80 leading-relaxed text-justify">
+                            大学合格は通過点。社会で活躍するためのOS（基本能力）を書き換えます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-5">
+                <h3 class="text-center text-sm font-bold text-navy mb-5 flex items-center justify-center">
+                    <span class="w-8 h-[1px] bg-gold mr-3"></span>
+                    Ark Collegeで身につく6つのスキル
+                    <span class="w-8 h-[1px] bg-gold ml-3"></span>
+                </h3>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-brain"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">論理的思考力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            感情論ではなく、事実と根拠に基づき矛盾なく筋道を立てるロジカル・シンキングを養います。
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">調査・情報収集力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Google検索に留まらず、論文や一次情報を当たり、信頼性の高い情報を掴み取るリサーチ力です。
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-file-pen"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">文章構成力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            読み手の解釈に依存しない、明快かつ説得力のあるアカデミック・ライティングを習得します。
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-user-check"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">自己分析力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            自身の原体験や価値観をメタ認知し、「自分が何者で、何を成したいか」を言語化する力です。
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-calendar-check"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">自己管理能力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            膨大な出願書類と学業を両立させるための、タスク管理・スケジュール管理能力を磨きます。
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-bullhorn"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">プレゼン能力</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            面接や口頭試問において、相手の心を動かし、共感を得るための「伝える技術」です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 06 | Ark College Brochure</div>
+    </div>
+
+    <!-- P7: Course (High 1-2) -->
+    <div class="page">
+        <!-- New Section Header to indicate start of Pricing -->
+        <div class="absolute top-0 left-0 w-full bg-navy text-white py-8 px-[15mm] z-20">
+            <div class="flex items-end justify-between border-b border-gold/50 pb-4">
+                <div>
+                    <h2 class="text-3xl serif font-light tracking-wider">Programs & Pricing</h2>
+                    <p class="text-xs text-gold mt-1 uppercase tracking-widest">コース・料金のご案内</p>
+                </div>
+                <div class="text-right opacity-70 text-sm font-light">
+                    Individual Strategy / Professional Mentoring
+                </div>
+            </div>
         </div>
 
-        <div class="footer">
-            総合型選抜専門塾 アークカレッジ (Ark College) | 完全オンライン・全国対応 | https://www.ark-college.com/
+        <div class="content-area pt-24"> <!-- Added padding-top to account for the new header -->
+            
+            <div class="mt-4">
+                <span class="inline-block bg-navy text-white text-xs px-3 py-1 mb-2 rounded-t">高1〜高2生 対象</span>
+                <div class="border-2 border-navy rounded-b rounded-tr p-8 relative shadow-lg bg-white">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-2/3">
+                            <h2 class="text-2xl font-serif text-navy font-bold">早期エリート育成コース</h2>
+                            <p class="text-sm text-navy font-bold mt-2">月額制のスタンダードコース</p>
+                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                                月4回のセッションで、学習ロードマップ作成から小論文・活動実績・面接指導を生徒一人ひとりに合わせてご提供します。
+                            </p>
+                        </div>
+                        <div class="text-right w-1/3">
+                            <span class="text-xs text-gray-500 block">月額(税込)</span>
+                            <span class="text-3xl font-serif font-bold text-navy">¥99,000</span>
+                        </div>
+                    </div>
+
+                    <div class="h-px bg-gray-200 mb-6"></div>
+
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">目的</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                高3進級時点で「合格レベル」の基礎（探究・論文力）を完成させる。
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">対象期間</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                入塾月 〜 高校2年3月まで
+                                <br><span class="text-[10px] text-gray-500 mt-1 block">※高校2年の2月などに入塾される場合も本コースからのスタートを推奨します。</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-1/4 text-xs font-bold text-navy bg-gray-100 p-2 text-center rounded">指導頻度</div>
+                            <div class="w-3/4 text-sm flex items-center">
+                                月4回（週1回） × 50分（完全オンライン・マンツーマン）
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-yellow-50 p-4 rounded border border-gold/30">
+                        <h4 class="font-bold text-sm mb-2 text-navy flex items-center"><i class="fa-solid fa-check-circle text-gold mr-2"></i> 全コース共通保証</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-700">
+                            <div>• 戦略コンサルティング</div>
+                            <div>• 添削・相談 無制限 (Slack)</div>
+                            <div>• 定期的な三者面談</div>
+                            <div>• 追加講習費なし</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 07 | Ark College Brochure</div>
+    </div>
+
+    <!-- P8: Course (High 3) -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Programs: Final Stage</span>
+        </div>
+
+        <div class="content-area">
+            <div class="mb-4">
+                <!-- P7と同様のスタイルで「高3生対象」を配置 -->
+                <span class="inline-block bg-gold text-navy text-xs px-4 py-1.5 mb-2 rounded-t font-black tracking-wider border-t border-l border-r border-white/50">高3生 対象</span>
+                
+                <div class="bg-gray-50 p-4 rounded-b rounded-tr border-t-2 border-gold mb-6">
+                    <h2 class="text-2xl font-serif text-navy mb-2">合格完遂コース（パッケージ制）</h2>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        月極ではなくパッケージ制にて3コースをご用意。<br>
+                        志望校合格に向けて必要なサポート（戦略・書類・面接・小論文）を全て提供します。
+                    </p>
+                </div>
+            </div>
+
+            <table class="w-full border-collapse text-center mb-6 mt-4">
+                <thead>
+                    <tr>
+                        <th class="p-2 bg-gray-100 border-b-2 border-gray-300 text-gray-600 w-[20%] text-xs"></th>
+                        <th class="p-2 bg-gray-100 border-b-2 border-gray-300 text-navy font-bold w-[25%] text-sm align-bottom pb-4">単願完遂コース</th>
+                        <!-- Recommended Badge調整: 色と枠線で強調 -->
+                        <th class="p-2 pt-10 bg-navy border-b-2 border-gold text-white font-bold w-[30%] relative shadow-xl text-sm align-bottom pb-4 z-10">
+                            <div class="absolute top-0 left-0 right-0 bg-gold text-white text-[11px] font-black py-1.5 shadow-md border-b border-white/20 z-20 tracking-wider">RECOMMENDED</div>
+                            難関大コース
+                        </th>
+                        <th class="p-2 bg-gray-800 border-b-2 border-gray-600 text-white font-bold w-[25%] text-sm align-bottom pb-4">最難関大コース</th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs">
+                    <tr>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">志望校ライン</td>
+                        <td class="p-2 border-b border-gray-200">希望による<br><span class="opacity-70 text-[10px]">(GMARCH、関関同立 等)</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-navy">国公立、早慶上智、<br>ICU 等</td>
+                        <td class="p-2 border-b border-gray-200">医学部、旧帝大、<br>慶應FIT 等</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">対策校数</td>
+                        <td class="p-2 border-b border-gray-200 font-bold text-sm">1校</td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold text-sm">3校</td>
+                        <td class="p-2 border-b border-gray-200 font-bold text-sm">5校</td>
+                    </tr>
+                     <tr>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">対策詳細</td>
+                        <td class="p-2 border-b border-gray-200">第一志望 1校<br><span class="opacity-70 text-[10px]">（計1校 or 1学部）</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">第一志望 ＋ 併願<br><span class="opacity-70 font-normal text-[10px]">（計3校 or 3学部）</span></td>
+                        <td class="p-2 border-b border-gray-200">第一志望 ＋ 併願<br><span class="opacity-70 text-[10px]">（計5校 or 5学部）</span></td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">セッション(50分)</td>
+                        <td class="p-2 border-b border-gray-200">全30回<br><span class="text-[9px] opacity-70">+添削無制限</span></td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-bold">全40回<br><span class="text-[9px] opacity-70 font-normal">+添削無制限</span></td>
+                        <td class="p-2 border-b border-gray-200">全50回<br><span class="text-[9px] opacity-70">+添削無制限</span></td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border-b border-gray-200 text-left font-bold bg-gray-50">パッケージ<br>金額(税込)</td>
+                        <td class="p-2 border-b border-gray-200 font-serif text-base">¥770,000</td>
+                        <td class="p-2 border-b border-gray-200 border-l-2 border-r-2 border-gold/30 bg-yellow-50 font-serif text-lg font-bold text-navy">¥990,000</td>
+                        <td class="p-2 border-b border-gray-200 font-serif text-base">¥1,210,000</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 text-left font-bold bg-gray-50 text-gray-400">月換算目安</td>
+                        <td class="p-2 text-[10px] text-gray-400">約8.5万円</td>
+                        <td class="p-2 border-l-2 border-r-2 border-b-2 border-gold/30 bg-yellow-50 rounded-b text-[10px] text-navy font-bold">約9.8万円</td>
+                        <td class="p-2 text-[10px] text-gray-400">約13.4万円</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid grid-cols-2 gap-4 mb-4 text-xs">
+                <div class="bg-gray-50 p-3 rounded">
+                    <span class="block font-bold text-navy mb-1">目的</span>
+                    圧倒的な一次通過率と戦略的併願で、確実に合格を獲りに行く。
+                </div>
+                <div class="bg-gray-50 p-3 rounded">
+                    <span class="block font-bold text-navy mb-1">対象期間・内容</span>
+                    高3年4月〜12月（約9ヶ月）。出願に向けたトータルサポート。
+                </div>
+            </div>
+
+            <div class="text-[10px] text-gray-600 leading-relaxed bg-yellow-50/50 border border-gray-200 p-3 rounded">
+                <span class="font-bold text-navy block mb-1 text-xs"><i class="fa-solid fa-circle-info text-gold mr-1"></i>特記事項</span>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong class="text-navy">対策校数のカウント:</strong> 原則、学部ごとに「1校」としてカウントします。ただし、同一大学内の併願に限り、柔軟に「1校」とみなす場合もございます（面談時にご相談ください）。</li>
+                    <li><strong class="text-navy">途中入学の扱い:</strong> 5月以降の入学も可能です。その場合、4月分のカリキュラムを凝縮して実施します。サポート総量は変わらないため、パッケージ価格は据え置きとなります。</li>
+                    <li><strong class="text-navy">費用構成:</strong> パッケージ価格には「初期導入費用（コースにより22〜33万円）」が含まれます。これは中途解約時の返金対象外となりますので予めご了承ください。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page-footer">Page 08 | Ark College Brochure</div>
+    </div>
+
+    <!-- P9: Options & Rules -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Options & Information</span>
+        </div>
+
+        <div class="content-area flex flex-col gap-8">
+            <!-- Options -->
+            <section>
+                <div class="flex items-center mb-4">
+                    <h3 class="text-lg font-bold text-navy mr-4">オプションプログラム</h3>
+                    <p class="text-xs text-gray-500">原則、パッケージ内で完結しますが、さらに手厚い指導を希望される方向けです。</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded p-4">
+                        <h4 class="text-sm font-bold text-navy mb-3 border-b border-gray-100 pb-2">セッション追加 <span class="text-[10px] font-normal text-gray-500 ml-1">(早期コース向け)</span></h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between"><span>2回追加</span> <span class="font-serif">¥44,000</span></div>
+                            <div class="flex justify-between"><span>4回追加</span> <span class="font-serif">¥66,000</span></div>
+                            <div class="flex justify-between"><span>8回追加</span> <span class="font-serif">¥110,000</span></div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded p-4">
+                        <h4 class="text-sm font-bold text-navy mb-3 border-b border-gray-100 pb-2">対策校追加 <span class="text-[10px] font-normal text-gray-500 ml-1">(高3コース向け)</span></h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>1校(1学部) 追加</span> 
+                                <span class="font-serif">¥220,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>2校(2学部) 追加</span> 
+                                <span class="font-serif">¥330,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Entry Fee -->
+            <section class="border-t border-gray-200 pt-6">
+                <h3 class="text-sm font-bold text-navy mb-3">入塾金・キャンペーン</h3>
+                <div class="bg-navy text-white p-5 rounded flex justify-between items-center shadow-lg">
+                    <div>
+                        <div class="text-xs opacity-70 mb-1">入塾金</div>
+                        <div class="text-xl font-serif">¥55,000 <span class="text-xs font-sans">(税込)</span></div>
+                    </div>
+                    <div class="text-right border-l border-white/20 pl-6">
+                        <div class="text-gold font-bold text-sm mb-1"><i class="fa-solid fa-star mr-1"></i> 即決キャンペーン</div>
+                        <div class="text-xs opacity-90">無料コンサル当日・翌日の入塾決定で<br><span class="text-lg font-bold border-b border-gold text-white">全額免除</span> いたします。</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Refund & Disclaimer -->
+            <section class="grid grid-cols-2 gap-6 pt-2">
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">返金規定（安心の30日間トライアル）</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        <span class="font-bold">【クーリング・オフ】</span> 契約締結後8日間は無条件で解除可能です。<br>
+                        <span class="font-bold">【中途解約】</span> 高3パッケージコースの場合、「初期導入費用（コースにより22〜33万円）」を除いた「指導運営費」の未消化分から、所定の解約違約金を差し引いた金額を返金いたします。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">免責事項</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        当塾の指導は合格を保証するものではありません。合格には、戦略に基づく生徒ご本人の圧倒的な実行量（リサーチ・執筆・練習）が不可欠であることを予めご了承ください。また、代筆行為等は固くお断りしております。
+                    </p>
+                </div>
+            </section>
+            <section class="mb-8">
+                <h2 class="text-xl serif text-navy mb-4">入塾審査について</h2>
+                <div class="bg-gray-50 p-6 border-l-4 border-navy">
+                    <p class="text-sm leading-relaxed mb-4">
+                        徹底的な個別最適化指導を行うため、<span class="font-bold">1学年6名</span>を限度として入塾審査を実施させていただきます。。<br>
+                        塾としてサポートさせていただく上で、生徒様との粘り強い対話が重要であると考えております。<br>
+                        よって、当塾での指導が生徒様にとって最適であると判断させていただいた方のみ入塾のご案内をさせていただきます。<br>
+                        資格や活動実績・評定平均・通学中の学校・居住地等は審査の対象とはなりません。
+                        それよりも、考え抜く力や探究心の強さ、特定の物事への情熱やユニークな考え方など、ポテンシャルを当塾にて責任を持って伸ばすことができるかどうかで、判断させていただきます。<br>
+                        無料コンサルティングにて、皆様とお話しできますことを楽しみにしております。
+                    </p>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 09 | Ark College Brochure</div>
+    </div>
+
+    <!-- P10: Profile & Back Cover -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Profile</span>
+        </div>
+
+        <div class="content-area h-full flex flex-col">
+            <section class="flex gap-6 items-start mb-auto">
+                <!-- Profile Image Placeholder -->
+                <div class="flex-shrink-0">
+                    <!-- 【画像差し替え箇所】ここに代表講師の顔写真を指定してください。正方形トリミング推奨 -->
+                    <img src="image.webp" 
+                         alt="Noah M. Profile" 
+                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-inner">
+                </div>
+                <div>
+                    <h2 class="text-xl serif text-navy font-bold mb-1">Noah M.</h2>
+                    <p class="text-xs text-gold uppercase tracking-widest mb-3">Ark College 代表講師</p>
+                    <p class="text-xs leading-relaxed text-gray-600 text-justify mb-4">
+                        慶應義塾大学法学部法律学科を卒業。その後、会社勤務を経て欧州の大学院へ留学。<br>
+                        慶應義塾大学法学部FIT入試A・B両方式で現役ダブル合格した経験をもとに、総合型選抜の指導分野に参画。大手総合型選抜塾「洋々」では4年間にわたりメンター講師として在籍し、多数の難関大学合格者を輩出。また、新規総合型選抜塾の立ち上げにおいては事業責任者を務め、指導ノウハウの体系化と組織運営を統括した。<br>
+                        さらに、大手外資系企業でマーケターとして勤務。市場分析、戦略立案、高い論理的思考力を実務を通じて培う。<br>
+                        これまでに31大学・50名以上の生徒を担当し、合格実績は国公立から早慶上智ICU、関関同立など多岐にわたる。<br>
+                    </p>
+                    
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-sm font-bold text-navy mb-2">主な実績</h4>
+                        <p class="text-[10px] leading-relaxed text-gray-500">
+                            一橋大学、お茶の水女子大学、横浜国立大学、筑波大学、香川大学、福島大学、慶應義塾大学、早稲田大学、国際基督教大学(ICU)、上智大学、明治大学、青山学院大学、立教大学、同志社大学、中央大学、法政大学、学習院大学、関西学院大学、立命館大学、関西大学、成蹊大学、明治学院大学、日本女子大学、東洋大学、近畿大学、東京女子大学、南山大学、立命館アジア太平洋大学、明星大学、帝京大学、城西大学 など
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Back Cover Action -->
+            <div class="bg-navy text-white -mx-[15mm] -mb-[20mm] py-16 px-12 text-center relative overflow-hidden">
+                 <!-- Abstract Decoration -->
+                 <svg class="absolute top-0 left-0 text-white opacity-5 w-[300px] h-[300px]" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <circle cx="0" cy="100" r="50" />
+                    <circle cx="0" cy="100" r="70" />
+                    <circle cx="0" cy="100" r="90" />
+                </svg>
+
+                <h2 class="text-2xl serif mb-6 relative z-10">まずは、無料コンサルティングへ。</h2>
+                <p class="text-sm opacity-80 mb-8 max-w-md mx-auto relative z-10">
+                    あなたの現状と志望校をお聞かせください。<br>
+                    合格までの戦略的なロードマップを提示いたします。
+                </p>
+                
+                <div class="mb-8 relative z-10">
+                    <a href="https://forms.gle/rbWA7wUD6Uw1dG76A" target="_blank" rel="noopener noreferrer" class="inline-block border border-gold text-gold px-8 py-3 tracking-widest text-sm hover:bg-gold hover:text-navy transition-colors cursor-pointer no-underline">
+                        APPLY FOR CONSULTATION
+                    </a>
+                </div>
+
+                <div class="text-[10px] opacity-40 tracking-widest relative z-10">
+                    https://forms.gle/rbWA7wUD6Uw1dG76A<br>
+                    © ARK COLLEGE. All Rights Reserved.
+                </div>
+            </div>
         </div>
     </div>
 
