@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ark College Brochure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700;900&family=Noto+Serif:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        /* Base Settings */
+        :root {
+            --color-navy: #0A192F;
+            --color-navy-light: #172a46;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F3E5AB;
+            --color-paper: #F8F9FA;
+        }
+        body {
+            background-color: #555; /* Preview Background */
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--color-navy);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Typography Override */
+        h1, h2, h3, .serif {
+            font-family: 'Noto Serif', serif;
+        }
+
+        /* A4 Page Container */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Print Settings - High Precision */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+                gap: 0;
+                display: block;
+                -webkit-print-color-adjust: exact; /* Chrome/Safari */
+                print-color-adjust: exact; /* Firefox */
+            }
+            .page {
+                width: 210mm;
+                height: 297mm; /* Force A4 Height */
+                box-shadow: none;
+                page-break-after: always;
+                break-after: page;
+                margin: 0;
+                overflow: hidden;
+                border: none;
+            }
+            
+            /* Hide UI elements during print */
+            .no-print {
+                display: none !important;
+            }
+
+            /* Set Page Size */
+            @page {
+                size: A4 portrait;
+                margin: 0; /* Remove default browser margins */
+            }
+        }
+
+        /* Utility Components */
+        .gold-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+        }
+        .text-gold { color: var(--color-gold); }
+        .bg-navy { background-color: var(--color-navy); }
+        .bg-navy-light { background-color: var(--color-navy-light); }
+        .text-navy { color: var(--color-navy); }
+        
+        /* Decoration Elements */
+        .compass-bg {
+            position: absolute;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        /* Header/Footer for content pages */
+        .page-header {
+            position: absolute;
+            top: 15mm;
+            left: 15mm;
+            right: 15mm;
+            height: 10mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 15mm;
+            right: 15mm;
+            text-align: center;
+            font-size: 9pt;
+            color: #888;
+        }
+        .content-area {
+            margin-top: 30mm;
+            margin-left: 15mm;
+            margin-right: 15mm;
+            margin-bottom: 20mm;
+            height: calc(297mm - 50mm);
+        }
+        
+        .accent-block {
+            border-left: 3px solid var(--color-gold);
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Print Guide (Hidden on Print) -->
+    <div class="no-print fixed top-0 left-0 w-full bg-navy text-white p-4 z-50 shadow-lg flex justify-between items-center opacity-90 hover:opacity-100 transition-opacity">
+        <div class="text-sm">
+            <i class="fa-solid fa-print text-gold mr-2"></i>
+            <strong>Printing / saving as PDF:</strong> enable &quot;Background graphics&quot; and set margins to &quot;None&quot;.
+        </div>
+        <button onclick="window.print()" class="bg-gold text-navy px-4 py-1 rounded font-bold hover:bg-white transition-colors text-sm">
+            Print / Save as PDF
+        </button>
+    </div>
+    <div class="no-print h-12"></div> <!-- Spacer -->
+
+    <!-- P1: Cover -->
+    <div class="page bg-navy text-white relative">
+        <!-- Abstract Decoration -->
+        <div class="absolute inset-0 overflow-hidden">
+            <svg class="absolute top-0 right-0 text-white opacity-5 w-[600px] h-[600px] -mr-32 -mt-32" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5">
+                <circle cx="50" cy="50" r="40" />
+                <circle cx="50" cy="50" r="30" />
+                <line x1="50" y1="0" x2="50" y2="100" />
+                <line x1="0" y1="50" x2="100" y2="50" />
+                <line x1="15" y1="15" x2="85" y2="85" />
+                <line x1="15" y1="85" x2="85" y2="15" />
+            </svg>
+        </div>
+
+        <div class="flex flex-col justify-center items-center h-full z-10 p-12 text-center">
+            <!-- Logo Image Placeholder -->
+            <div class="mb-16">
+                <!-- [Image slot] Set the logo image URL here. A transparent PNG is recommended. -->
+                    <img src="logo.png" 
+                     alt="Ark College Logo" 
+                     class="w-40 h-40 object-contain mx-auto mb-4 rounded-xl bg-navy-light/50 backdrop-blur-sm border border-gold/30 p-4">
+                
+                <h1 class="text-3xl tracking-[0.2em] font-light mt-4">ARK COLLEGE</h1>
+            </div>
+
+            <!-- Title -->
+            <div class="mb-12 relative w-full">
+                <div class="h-[1px] w-1/3 bg-gold mx-auto mb-6 opacity-50"></div>
+                <h2 class="text-4xl serif font-medium mb-2 leading-tight">The Professional Firm<br>for Comprehensive Admissions</h2>
+                <p class="text-gold tracking-widest text-sm uppercase">University Admissions Strategy Consulting</p>
+                <div class="h-[1px] w-1/3 bg-gold mx-auto mt-6 opacity-50"></div>
+            </div>
+
+            <!-- Catchcopy -->
+            <div class="mt-8">
+                <p class="text-lg leading-loose serif opacity-90">
+                    Beyond admissions.<br>
+                    Small by design.<br>
+                    University admissions coaching with<br>
+                    the rigor of a professional firm.
+                </p>
+            </div>
+
+            <!-- URL -->
+            <div class="absolute bottom-12 text-xs tracking-widest opacity-60">
+                https://forms.gle/rbWA7wUD6Uw1dG76A
+            </div>
+        </div>
+    </div>
+
+    <!-- P2: Paradigm Shift -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Philosophy</span>
+        </div>
+
+        <!-- justify-between removed; spacing handled by gap-12, content aligned to the top -->
+        <div class="content-area flex flex-col gap-5">
+            <!-- Section 01 -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">01.</span> A Paradigm Shift in Education
+                </h2>
+                <div class="flex gap-8 mb-4">
+                    <div class="w-1/2 p-4 bg-gray-50 border-l-2 border-gray-300">
+                        <h4 class="text-sm font-bold text-gray-500 mb-2">Old Standard (until 2020)</h4>
+                        <p class="text-lg font-serif mb-2 text-gray-600">Knowledge × processing speed</p>
+                        <p class="text-xs text-justify leading-relaxed text-gray-500">
+                            In Japan&rsquo;s high-growth era, securing a uniform, high-quality workforce made one ability optimal: reaching the right answer quickly and accurately, as measured by standardized deviation scores.
+                        </p>
+                    </div>
+                    <div class="flex items-center text-gold text-2xl">
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </div>
+                    <div class="w-1/2 p-4 bg-navy-light text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 text-gold opacity-10 text-6xl"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h4 class="text-sm font-bold text-gold mb-2">New Standard (2020 onward)</h4>
+                        <p class="text-lg font-serif mb-2">Applied knowledge × creativity</p>
+                        <p class="text-xs text-justify leading-relaxed opacity-90">
+                            In the age of AI and VUCA, an unpredictable world asks how you use knowledge, who you work with, and what you create.
+                        </p>
+                    </div>
+                </div>
+                
+                <h3 class="text-lg font-bold mb-2 accent-block">Admissions Reform and the Three Elements of Academic Ability</h3>
+                <div class="grid grid-cols-3 gap-4 mb-3 text-center text-sm">
+                    <div class="border border-gray-200 p-3 rounded">
+                        <div class="text-navy font-bold mb-1">1. Knowledge &amp; Skills</div>
+                        <div class="text-xs text-gray-500">Foundational literacy</div>
+                    </div>
+                    <div class="bg-navy text-white p-3 rounded shadow-md relative">
+                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-gold text-navy text-[10px] px-2 py-0.5 rounded-full font-bold w-max">Where Comprehensive Admissions is won</div>
+                        <div class="font-bold mb-1">2. Thinking, Judgment &amp; Expression</div>
+                        <div class="text-xs opacity-80">Logical dialogue</div>
+                    </div>
+                    <div class="bg-navy text-white p-3 rounded shadow-md">
+                        <div class="font-bold mb-1">3. Initiative &amp; Collaboration</div>
+                        <div class="text-xs opacity-80">Working with diverse others</div>
+                    </div>
+                </div>
+                <p class="text-sm leading-relaxed">
+                    Comprehensive Admissions is no longer a &quot;one-talent&quot; or &quot;easy&quot; route. It has evolved into <strong class="bg-yellow-100 px-1">the most intellectually demanding selection method, and the one best matched to what society needs today</strong>.
+                </p>
+            </section>
+
+            <!-- Section 02 -->
+            <section class="pt-5 border-t border-dashed border-gray-300">
+                <h2 class="text-2xl serif text-navy mb-2 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">02.</span> Skills That Last Long After Admissions
+                </h2>
+                <p class="text-[10px] text-gray-500 mb-4 font-serif tracking-wide">
+                    &mdash; The new model of learning defined by the international framework &quot;Education 2030&quot; &mdash;
+                </p>
+
+                <p class="text-xs leading-relaxed text-justify mb-3 text-navy">
+                    &quot;Education 2030,&quot; the global education framework, calls for the ability to carve out a future with no fixed answers: <strong class="bg-yellow-100 px-1">cultivating &quot;agency&quot; &mdash; a sense of ownership</strong>. In the age of AI, rote learning has lost its value. What admissions and society reward now is not theory on paper but <strong class="border-b border-gold">&quot;the power to move reality&quot;</strong>.<br>
+                    At Ark College, we build three next-generation skills on this principle.
+                </p>
+
+                <div class="grid grid-cols-3 gap-3 mb-3">
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-clipboard-question"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">1. Posing the Question</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Problem Posing</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            When answers are everywhere online, the question itself holds the value. Questioning convention and finding problems from your own perspective is the source of your Statement of Purpose and research.
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-rocket"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">2. Acting in the Real World</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Authentic Action</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            You learn from real engagement with society, not from borrowed words. Authentic experience &mdash; taking on challenges without fear of failure &mdash; produces the one-of-a-kind language that moves an interviewer.
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 p-3 rounded shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-8 h-8 bg-gold opacity-10 rounded-bl-full"></div>
+                        <div class="text-gold mb-2 text-lg"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-0.5">3. Orchestration</h4>
+                        <div class="text-[9px] text-gray-400 mb-2 font-serif italic">Orchestration</div>
+                        <p class="text-[10px] text-gray-600 leading-tight text-justify">
+                            Creating new value through dialogue with diverse others rather than working alone. This skill makes the decisive difference in group discussions and in project work after you enroll.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-navy-light text-white p-4 rounded text-center shadow-lg border-l-4 border-gold">
+                    <p class="text-xs font-bold mb-1">Preparing for Comprehensive Admissions is training that earns you a lifelong advantage.</p>
+                    <p class="text-[10px] opacity-80 font-light">
+                        Admission is a milestone. Together, let us build the strength to keep shining long after it.
+                    </p>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 02 | Ark College Brochure</div>
+    </div>
+
+    <!-- P3: Market Trends -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Market Insight</span>
+        </div>
+
+        <div class="content-area">
+            <!-- Section 03 -->
+            <section class="mb-10">
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">03.</span> Admissions Trends: Early-Cycle Admissions by the Numbers
+                </h2>
+                
+                <div class="flex items-center gap-8 mb-6 bg-gray-50 p-6 rounded-xl">
+                    <div class="w-1/3 relative text-center">
+                        <div class="w-32 h-32 rounded-full border-8 border-navy mx-auto flex items-center justify-center relative z-10 bg-white">
+                            <span class="text-3xl font-bold text-navy">50.7<span class="text-base">%</span></span>
+                        </div>
+                        <p class="mt-2 text-xs font-bold text-navy">Admitted via recommendation or<br>Comprehensive Admissions (FY2023)</p>
+                    </div>
+                    <div class="w-2/3 space-y-3">
+                        <div class="flex items-center">
+                            <span class="w-24 text-xs font-bold bg-navy text-white px-2 py-1 mr-3 text-center">Waseda Univ.</span>
+                            <span class="text-sm">Cutting General Admissions to 40%, raising Comprehensive and recommendation tracks to 60%.</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-24 text-xs font-bold bg-navy text-white px-2 py-1 mr-3 text-center">National Univ.</span>
+                            <span class="text-sm">Policy to expand recommendation and Comprehensive quotas to 30%.</span>
+                        </div>
+                        <div class="p-3 border border-gold bg-yellow-50 text-xs text-navy mt-2">
+                            <i class="fa-solid fa-triangle-exclamation text-gold mr-1"></i>
+                            <span class="font-bold">Conclusion:</span> the more selective the school, the more it seeks talent the national standardized test cannot measure. Betting on General Admissions alone is a risk; using Comprehensive Admissions is the rational way to maximize your chances.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 04 -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-6 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">04.</span> How Comprehensive Admissions Works (Matching)
+                </h2>
+
+                <div class="flex gap-4 mb-8">
+                    <!-- General Admission -->
+                    <div class="w-1/2 border border-gray-200 p-4">
+                        <h4 class="text-center font-serif border-b pb-2 mb-3 text-gray-500">General Admissions</h4>
+                        <ul class="text-sm space-y-2 text-gray-500">
+                            <li class="flex justify-between"><span>Criteria</span> <span class="font-bold">Score on the day</span></li>
+                            <li class="flex justify-between"><span>Competition</span> <span class="font-bold">Relative evaluation</span></li>
+                            <li class="flex justify-between"><span>Nature</span> <span class="font-bold">Musical chairs</span></li>
+                        </ul>
+                    </div>
+                    <!-- Comprehensive Admission -->
+                    <div class="w-1/2 border-2 border-navy bg-navy-light/5 p-4 relative">
+                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-navy text-white px-3 py-1 text-xs">Ark College Domain</div>
+                        <h4 class="text-center font-serif border-b border-navy pb-2 mb-3 text-navy font-bold">Comprehensive Admissions</h4>
+                        <ul class="text-sm space-y-2 text-navy">
+                            <li class="flex justify-between"><span>Criteria</span> <span class="font-bold">Process and purpose</span></li>
+                            <li class="flex justify-between"><span>Competition</span> <span class="font-bold">Absolute evaluation</span></li>
+                            <li class="flex justify-between"><span>Nature</span> <span class="font-bold">Matching</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-sm font-bold mb-3 flex items-center"><i class="fa-solid fa-layer-group text-gold mr-2"></i> Four Evaluation Layers That Decide the Outcome</h3>
+                <div class="space-y-2">
+                    <div class="bg-navy text-white p-3 flex items-center justify-between rounded shadow-lg transform translate-x-4">
+                        <span class="font-serif">04. Execution</span>
+                        <span class="text-xs bg-gold text-navy px-2 py-0.5">Track record &amp; activities</span>
+                    </div>
+                    <div class="bg-navy-light text-white p-3 flex items-center justify-between rounded shadow-md transform translate-x-3 opacity-90">
+                        <span class="font-serif">03. Logic</span>
+                        <span class="text-xs border border-white px-2 py-0.5">Social issue analysis &amp; essays</span>
+                    </div>
+                    <div class="bg-gray-600 text-white p-3 flex items-center justify-between rounded shadow-sm transform translate-x-2 opacity-80">
+                        <span class="font-serif">02. Academics</span>
+                        <span class="text-xs bg-gray-500 px-2 py-0.5">GPA &amp; language qualifications</span>
+                    </div>
+                    <div class="bg-red-800 text-white p-3 flex items-center justify-between rounded transform translate-x-1">
+                        <span class="font-serif">01. Passion</span>
+                        <span class="text-xs border border-white px-2 py-0.5">Motivation &amp; formative experience</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 03 | Ark College Brochure</div>
+    </div>
+
+    <!-- P4: Roadmap -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Strategy & Roadmap</span>
+        </div>
+
+        <div class="content-area">
+            <!-- University Specifics -->
+            <section class="mb-8">
+                <h2 class="text-2xl serif text-navy mb-4 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">05.</span> Preparation by University Group
+                </h2>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="border-t-2 border-navy pt-3">
+                        <h3 class="font-serif text-lg mb-2">Waseda / Keio / Sophia</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            <span class="font-bold text-navy">Keio SFC</span> looks for future-making and concrete solutions; <span class="font-bold text-navy">Waseda</span> for faculty-specific distinctiveness; <span class="font-bold text-navy">Sophia</span> for contribution to others and a global outlook. A high-level vision is required.
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-gold pt-3">
+                        <h3 class="font-serif text-lg mb-2">GMARCH</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            <span class="font-bold text-navy">Rikkyo</span> emphasizes leadership; <span class="font-bold text-navy">Chuo</span> logical thinking; <span class="font-bold text-navy">Aoyama Gakuin</span> turning a personal strength into academic inquiry. Fit with each university&rsquo;s character matters most.
+                        </p>
+                    </div>
+                    <div class="border-t-2 border-gray-400 pt-3">
+                        <h3 class="font-serif text-lg mb-2">National &amp; Public</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">
+                            Assumes 80%+ on the national standardized test, plus the makings of a researcher. Academic curiosity and solid fundamentals are both essential.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section>
+                <h2 class="text-2xl serif text-navy mb-8 flex items-center">
+                    <span class="text-gold mr-3 text-3xl">06.</span> Roadmap to Admission
+                </h2>
+                
+                <div class="relative">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200"></div>
+
+                    <!-- Steps -->
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-white border-2 border-navy text-navy font-bold flex items-center justify-center text-sm z-10">01</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">Planting Seeds <span class="text-sm font-sans text-gray-500 ml-2">Gr. 10&ndash;11</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-gray-300">
+                            <p class="text-sm font-bold mb-1">Input and self-analysis</p>
+                            <p class="text-xs text-gray-600">Reading in your fields of interest, keeping your GPA up, joining extracurriculars. A period for finding what truly absorbs you.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-white border-2 border-navy text-navy font-bold flex items-center justify-center text-sm z-10">02</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">Choosing Schools <span class="text-sm font-sans text-gray-500 ml-2">Gr. 12 Spring (Apr&ndash;Jun)</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-navy">
+                            <p class="text-sm font-bold mb-1">Building your story</p>
+                            <p class="text-xs text-gray-600">Interrogate &quot;why this university?&quot; Connect your past and future to build a Statement of Purpose whose logic feels inevitable.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-navy border-2 border-navy text-white font-bold flex items-center justify-center text-sm z-10">03</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">Writing <span class="text-sm font-sans text-gray-500 ml-2">Gr. 12 Summer (Jul&ndash;Aug)</span></h4>
+                        <div class="bg-navy-light/10 p-4 rounded border-l-4 border-gold">
+                            <p class="text-sm font-bold mb-1 text-navy">Articulation and revision</p>
+                            <p class="text-xs text-gray-800">Drafting the Statement of Purpose. 20+ rewrites are standard. Outside perspectives close the gaps in your logic.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-12">
+                        <div class="absolute left-0 top-0 w-8 h-8 rounded-full bg-gold border-2 border-gold text-white font-bold flex items-center justify-center text-sm z-10">04</div>
+                        <h4 class="text-lg font-serif text-navy mb-1">Exam-Stage Prep <span class="text-sm font-sans text-gray-500 ml-2">Gr. 12 Fall (Sep&ndash;Nov)</span></h4>
+                        <div class="bg-gray-50 p-4 rounded border-l-4 border-gray-300">
+                            <p class="text-sm font-bold mb-1">Output training</p>
+                            <p class="text-xs text-gray-600">Essays, presentations and interview prep. Sharpening real dialogue skills that go beyond rehearsed Q&amp;A.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 04 | Ark College Brochure</div>
+    </div>
+
+    <!-- P5: About Ark (Navy Page) -->
+    <div class="page bg-navy text-white relative">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#D4AF37 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="content-area flex flex-col justify-center h-full relative z-10">
+            <div class="text-center mb-12">
+                <div class="text-gold tracking-widest text-sm mb-4 uppercase">Ark College</div>
+                <h2 class="text-4xl serif font-light mb-6">Small by design.<br>Strategy that wins top universities.</h2>
+                <div class="w-16 h-1 bg-gold mx-auto mb-8"></div>
+                <p class="text-lg font-light opacity-90">A fully online private academy specializing in Comprehensive Admissions</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mb-16 text-center">
+                <div class="p-4 border border-white/20 rounded backdrop-blur-sm">
+                    <div class="text-3xl font-serif text-gold mb-2">92.3<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">First Choice<br>First-round pass rate</div>
+                </div>
+                <div class="p-4 border border-gold/50 rounded bg-gold/10 backdrop-blur-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gold text-navy text-[10px] px-2 py-0.5 font-bold">High Achievement</div>
+                    <div class="text-3xl font-serif text-gold mb-2">86.7<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">First Choice<br>Final admission rate</div>
+                </div>
+                <div class="p-4 border border-white/20 rounded backdrop-blur-sm">
+                    <div class="text-3xl font-serif text-gold mb-2">100<span class="text-sm">%</span></div>
+                    <div class="text-xs tracking-wider opacity-70">University<br>Placement rate</div>
+                </div>
+            </div>
+
+            <div class="px-8">
+                <p class="text-sm leading-8 text-justify opacity-80 font-light">
+                    Comprehensive Admissions is not an essay contest. It demands a highly advanced matching strategy: decoding each university&rsquo;s admission policy and aligning it with your potential &mdash; past, present and future.<br><br>
+                    Ark College is not a mass-market prep school. We exist solely for families determined to get in &mdash; a small, select <span class="text-gold font-bold">professional firm</span>.
+                </p>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <i class="fa-solid fa-anchor text-gold text-2xl opacity-50"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- P6: Reasons & Skills -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Why Ark College?</span>
+        </div>
+
+        <div class="content-area">
+            <h2 class="text-2xl serif text-navy mb-6 text-center">Four Reasons Families Choose Us</h2>
+
+            <div class="grid grid-cols-2 gap-5 mb-6">
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-regular fa-compass absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 01</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">Admissions Strategy Consulting</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            Your potential &times; each school&rsquo;s character. Professionals design an application portfolio that maximizes your chances, and a story that earns high marks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-solid fa-pen-nib absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 02</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">Fully Personalized Curriculum</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            No part-time student tutors. Our lead instructor designs everything himself &mdash; not off-the-shelf texts, but a curriculum built around your target schools, ability and temperament.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-5 rounded-lg relative overflow-hidden">
+                    <i class="fa-regular fa-comments absolute -bottom-4 -right-4 text-7xl text-gray-200"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 03</div>
+                        <h3 class="text-navy font-bold mb-2 text-sm">Unlimited Review &amp; Chat Support</h3>
+                        <p class="text-[11px] text-gray-600 leading-relaxed text-justify">
+                            Available around the clock. Replies on Slack within 48 hours as a rule. Late at night or early in the morning, your worries are met right away.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-navy p-5 rounded-lg relative overflow-hidden text-white">
+                    <i class="fa-solid fa-graduation-cap absolute -bottom-4 -right-4 text-7xl text-navy-light opacity-50"></i>
+                    <div class="relative z-10">
+                        <div class="text-gold font-serif italic text-base mb-1">Reason 04</div>
+                        <h3 class="font-bold mb-2 text-sm">Six Soft Skills for Life</h3>
+                        <p class="text-[11px] opacity-80 leading-relaxed text-justify">
+                            Admission is a milestone. We rewrite the operating system you will run on in society.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-5">
+                <h3 class="text-center text-sm font-bold text-navy mb-5 flex items-center justify-center">
+                    <span class="w-8 h-[1px] bg-gold mr-3"></span>
+                    The Six Skills You Build at Ark College
+                    <span class="w-8 h-[1px] bg-gold ml-3"></span>
+                </h3>
+                
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-brain"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Logical Thinking</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Building arguments on facts and evidence without contradiction, rather than on emotion.
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Research &amp; Information Gathering</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Going beyond a Google search to papers and primary sources, and coming away with information you can trust.
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-file-pen"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Structured Writing</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Academic writing that is clear and persuasive, and never leaves meaning to the reader&rsquo;s interpretation.
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-user-check"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Self-Analysis</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Recognizing your formative experiences and values, and putting into words who you are and what you want to achieve.
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-calendar-check"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Self-Management</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            Task and schedule management, so you can carry a heavy application load alongside your studies.
+                        </p>
+                    </div>
+
+                    <div class="border border-gray-200 rounded p-3 bg-white shadow-sm">
+                        <div class="text-gold text-lg mb-1"><i class="fa-solid fa-bullhorn"></i></div>
+                        <h4 class="text-xs font-bold text-navy mb-1">Presentation</h4>
+                        <p class="text-[10px] text-gray-500 leading-tight text-justify">
+                            The craft of communicating in interviews and oral exams so that you move people and win their agreement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 06 | Ark College Brochure</div>
+    </div>
+
+    <!-- P7: Programs & Pricing -->
+    <div class="page">
+        <!-- Section Header to indicate start of Pricing -->
+        <div class="absolute top-0 left-0 w-full bg-navy text-white py-8 px-[15mm] z-20">
+            <div class="flex items-end justify-between border-b border-gold/50 pb-4">
+                <div>
+                    <h2 class="text-3xl serif font-light tracking-wider">Programs &amp; Pricing</h2>
+                    <p class="text-xs text-gold mt-1 uppercase tracking-widest">Courses &amp; Fees</p>
+                </div>
+                <div class="text-right opacity-70 text-sm font-light">
+                    Individual Strategy / Professional Mentoring
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area pt-24"> <!-- Added padding-top to account for the new header -->
+
+            <!-- Service Overview -->
+            <div class="accent-block mt-6 mb-6">
+                <h3 class="text-base font-bold text-navy mb-2 serif flex items-center">
+                    <i class="fa-solid fa-circle-info text-gold mr-2 text-sm"></i>About Our Service
+                </h3>
+                <p class="text-[11px] text-gray-700 leading-relaxed text-justify">
+                    Small by design. No extra fees. At Ark College we treat Comprehensive Admissions not as &quot;test prep&quot; but as a project with a single goal: admission. We walk with you end to end, from strategy and activity design through documents, essays and interviews. Unlimited review is not merely an unlimited count &mdash; it is a quality guarantee that we keep polishing your work against the evaluation criteria until it reaches admission standard. With limited enrollment, replies within 48 hours, and simultaneous, repeated work across subjects, we are built to run to the finish without dropping quality.
+                </p>
+            </div>
+
+            <!-- 4 Course Cards -->
+            <div class="grid grid-cols-4 gap-3 mb-6">
+
+                <!-- Light -->
+                <div class="border border-gray-200 rounded flex flex-col">
+                    <div class="bg-gray-50 border-b border-gray-200 px-3 py-2 rounded-t">
+                        <span class="block text-[9px] text-gray-500">Gr. 10 &ndash; Gr. 11 Spring</span>
+                        <h4 class="text-sm font-bold text-navy serif">Light</h4>
+                    </div>
+                    <div class="p-3 flex flex-col flex-grow">
+                        <p class="text-[9px] text-gray-700 leading-relaxed mb-2">
+                            For Grade 10&ndash;11 students, this course lays the groundwork for Comprehensive Admissions early. We take stock of your activities and self-analysis, set a direction for your field of interest, and build the skeleton of a story that earns high marks.
+                        </p>
+                        <div class="text-[9px] font-bold text-navy border-b border-gray-200 pb-1 mb-1.5">What this course covers</div>
+                        <ul class="text-[8px] text-gray-700 leading-relaxed space-y-0.5 flex-grow">
+                            <li>&bull; Clarify your field and target schools; grasp the evaluation criteria</li>
+                            <li>&bull; Self-analysis and an inventory of activities; surface and prioritize your material</li>
+                            <li>&bull; Design an activity plan and define your next concrete steps</li>
+                            <li>&bull; Build fundamentals in essays, interviews and discussion</li>
+                        </ul>
+                        <div class="bg-gray-50 rounded text-center py-2 mt-3">
+                            <span class="block text-[8px] text-gray-500">Monthly (incl. tax)</span>
+                            <span class="block text-lg font-serif font-bold text-navy leading-tight">&yen;55,000</span>
+                            <span class="block text-[8px] text-gray-500">approx. $360 &middot; 2 sessions/mo.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standard -->
+                <div class="border-2 border-navy rounded flex flex-col shadow-lg">
+                    <div class="bg-navy px-3 py-2 rounded-t">
+                        <span class="block text-[9px] text-gold">Grades 10&ndash;11</span>
+                        <h4 class="text-sm font-bold text-white serif">Standard</h4>
+                    </div>
+                    <div class="p-3 flex flex-col flex-grow">
+                        <p class="text-[9px] text-gray-700 leading-relaxed mb-2">
+                            For Grade 10&ndash;11 students, this course carries you from building a track record through to finished written output. You can prepare for all of admissions on a plan, and it also works if you need exam-stage prep only.
+                        </p>
+                        <div class="text-[9px] font-bold text-navy border-b border-gray-200 pb-1 mb-1.5">What this course covers</div>
+                        <ul class="text-[8px] text-gray-700 leading-relaxed space-y-0.5 flex-grow">
+                            <li>&bull; Design and execute an activity strategy aligned to your schools&rsquo; criteria</li>
+                            <li>&bull; Draft core documents: Statement of Purpose, personal statement, activity reports</li>
+                            <li>&bull; Raise writing quality through repeated review and revision</li>
+                            <li>&bull; Foundations for essay and interview prep, plus exam-stage preparation</li>
+                            <li>&bull; Structure and expression for submissions required in English</li>
+                        </ul>
+                        <div class="text-center py-2 mt-3">
+                            <span class="block text-[8px] text-gray-500">Monthly (incl. tax)</span>
+                            <span class="block text-lg font-serif font-bold text-navy leading-tight">&yen;121,000</span>
+                            <span class="block text-[8px] text-gray-500">approx. $790 &middot; 4 sessions/mo.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced -->
+                <div class="border border-gray-200 rounded flex flex-col">
+                    <div class="bg-gray-50 border-b border-gray-200 px-3 py-2 rounded-t">
+                        <span class="block text-[9px] text-gray-500">Gr. 12 / gap year / G11&ndash;12</span>
+                        <h4 class="text-sm font-bold text-navy serif">Advanced</h4>
+                    </div>
+                    <div class="p-3 flex flex-col flex-grow">
+                        <p class="text-[9px] text-gray-700 leading-relaxed mb-2">
+                            For Gr. 12, gap-year and G11&ndash;12 students, this course narrows the scope and finishes it intensively. Combine with general admissions, focus on a single school, or prepare documents only &mdash; go deep on exactly what you need.
+                        </p>
+                        <div class="text-[9px] font-bold text-navy border-b border-gray-200 pb-1 mb-1.5">What this course covers</div>
+                        <ul class="text-[8px] text-gray-700 leading-relaxed space-y-0.5 flex-grow">
+                            <li>&bull; Application scheduling built around sitting general admissions as well</li>
+                            <li>&bull; Intensive preparation focused on a single first-choice school</li>
+                            <li>&bull; Producing and reviewing the Statement of Purpose, personal statement and activity reports</li>
+                            <li>&bull; Available for document preparation only</li>
+                            <li>&bull; Essay and interview prep with repeated refinement</li>
+                        </ul>
+                        <div class="bg-gray-50 rounded text-center py-2 mt-3">
+                            <span class="block text-[8px] text-gray-500">Monthly (incl. tax)</span>
+                            <span class="block text-lg font-serif font-bold text-navy leading-tight">&yen;165,000</span>
+                            <span class="block text-[8px] text-gray-500">approx. $1,090 &middot; 6 sessions/mo.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intensive -->
+                <div class="border border-gray-200 rounded flex flex-col">
+                    <div class="bg-gray-50 border-b border-gray-200 px-3 py-2 rounded-t">
+                        <span class="block text-[9px] text-gray-500">Gr. 12 / gap year / G11&ndash;12</span>
+                        <h4 class="text-sm font-bold text-navy serif">Intensive</h4>
+                    </div>
+                    <div class="p-3 flex flex-col flex-grow">
+                        <p class="text-[9px] text-gray-700 leading-relaxed mb-2">
+                            For Gr. 12, gap-year and G11&ndash;12 students, this is full support all the way to admission. For returnees and those committing to Comprehensive Admissions, we cover several schools intensively, from reach schools to safeties.
+                        </p>
+                        <div class="text-[9px] font-bold text-navy border-b border-gray-200 pb-1 mb-1.5">What this course covers</div>
+                        <ul class="text-[8px] text-gray-700 leading-relaxed space-y-0.5 flex-grow">
+                            <li>&bull; Final design of your school list and a strategy to raise your odds</li>
+                            <li>&bull; Weekly task management backed out from deadlines; rigorous submission tracking</li>
+                            <li>&bull; Produce and complete the full document set, refined to admission standard</li>
+                            <li>&bull; Intensified essay and interview prep with drills and mock interviews</li>
+                            <li>&bull; Priority support for short-cycle, high-intensity output</li>
+                        </ul>
+                        <div class="bg-yellow-50 border border-gold/30 rounded text-center py-2 mt-3">
+                            <span class="block text-[8px] text-gray-500">Monthly (incl. tax)</span>
+                            <span class="block text-lg font-serif font-bold text-navy leading-tight">&yen;189,000</span>
+                            <span class="block text-[8px] text-gray-500">approx. $1,250 &middot; 8 sessions/mo.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Guarantees -->
+            <div class="bg-navy rounded p-5 shadow-lg">
+                <h4 class="text-center text-sm font-bold text-white mb-3 tracking-widest">Included in Every Course</h4>
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="bg-navy-light rounded text-center py-3">
+                        <i class="fa-solid fa-comments text-gold text-base mb-1"></i>
+                        <div class="text-[10px] text-white font-bold">Chat support</div>
+                        <div class="text-sm text-gold font-bold">Unlimited</div>
+                    </div>
+                    <div class="bg-navy-light rounded text-center py-3">
+                        <i class="fa-solid fa-globe text-gold text-base mb-1"></i>
+                        <div class="text-[10px] text-white font-bold">Fully</div>
+                        <div class="text-sm text-gold font-bold">Online</div>
+                    </div>
+                    <div class="bg-navy-light rounded text-center py-3">
+                        <i class="fa-solid fa-ban text-gold text-base mb-1"></i>
+                        <div class="text-[10px] text-white font-bold">Extra fees</div>
+                        <div class="text-sm text-gold font-bold">None</div>
+                    </div>
+                    <div class="bg-navy-light rounded text-center py-3">
+                        <i class="fa-solid fa-clock text-gold text-base mb-1"></i>
+                        <div class="text-[10px] text-white font-bold">Replies</div>
+                        <div class="text-sm text-gold font-bold">Within 48h</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 07 | Ark College Brochure</div>
+    </div>
+
+    <!-- P8: Pricing & Plans -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Pricing &amp; Plans</span>
+        </div>
+
+        <div class="content-area">
+
+            <h2 class="text-lg serif text-navy font-bold mb-2">Core Course Comparison</h2>
+
+            <table class="w-full border-collapse text-center mb-3">
+                <thead>
+                    <tr class="text-[11px]">
+                        <th class="p-1 bg-navy text-white text-left font-bold w-[16%] border border-gray-300">Item</th>
+                        <th class="p-1 bg-gray-100 text-navy font-bold w-[21%] border border-gray-300">Light</th>
+                        <th class="p-1 bg-navy text-white font-bold w-[21%] border border-gray-300">Standard</th>
+                        <th class="p-1 bg-gray-100 text-navy font-bold w-[21%] border border-gray-300">Advanced</th>
+                        <th class="p-1 bg-gray-100 text-navy font-bold w-[21%] border border-gray-300">Intensive</th>
+                    </tr>
+                </thead>
+                <tbody class="text-[11px]">
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Monthly (incl. tax)</td>
+                        <td class="p-1 border border-gray-300 font-serif text-sm font-bold text-navy">&yen;55,000</td>
+                        <td class="p-1 border border-gray-300 font-serif text-sm font-bold text-navy">&yen;121,000</td>
+                        <td class="p-1 border border-gray-300 font-serif text-sm font-bold text-navy">&yen;165,000</td>
+                        <td class="p-1 border border-gray-300 font-serif text-sm font-bold text-navy">&yen;189,000</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Monthly (excl. tax)</td>
+                        <td class="p-1 border border-gray-300">&yen;50,000</td>
+                        <td class="p-1 border border-gray-300">&yen;110,000</td>
+                        <td class="p-1 border border-gray-300">&yen;150,000</td>
+                        <td class="p-1 border border-gray-300">&yen;171,819</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Approx. USD</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$360</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$790</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$1,090</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$1,250</td>
+                    </tr>
+                    <tr class="text-[9px] text-left align-top">
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50 text-[11px] align-middle">Best for</td>
+                        <td class="p-1 border border-gray-300 leading-relaxed">
+                            <span class="font-bold text-navy block mb-1">Gr. 10 &ndash; Gr. 11 Spring</span>
+                            &bull; Early prep: building a track record and self-analysis
+                        </td>
+                        <td class="p-1 border border-gray-300 leading-relaxed">
+                            <span class="font-bold text-navy block mb-1">Grades 10&ndash;11</span>
+                            &bull; Early prep: activities, self-analysis<br>
+                            &bull; Planned prep for all of admissions<br>
+                            &bull; Exam-stage prep only
+                        </td>
+                        <td class="p-1 border border-gray-300 leading-relaxed">
+                            <span class="font-bold text-navy block mb-1">Gr. 12 / gap year / G11&ndash;12</span>
+                            &bull; Also taking general exams, or focusing on one school<br>
+                            &bull; Documents only
+                        </td>
+                        <td class="p-1 border border-gray-300 leading-relaxed">
+                            <span class="font-bold text-navy block mb-1">Gr. 12 / gap year / G11&ndash;12</span>
+                            &bull; Returnee or Comprehensive Admissions track<br>
+                            &bull; Full prep for several schools intensively, reach to safety
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Sessions / mo.</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">2</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">4</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">6</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">8</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Document review</td>
+                        <td class="p-1 border border-gray-300">Weekly</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Essay review</td>
+                        <td class="p-1 border border-gray-300">Weekly</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Chat support</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="bg-navy text-white rounded px-5 py-2.5 flex items-center text-sm mb-2 shadow">
+                <i class="fa-solid fa-star text-gold mr-3"></i>
+                <span class="shrink-0 whitespace-nowrap">Enrollment fee <span class="font-serif text-lg font-bold">&yen;99,000</span><span class="text-xs"> (incl. tax)</span></span>
+                <span class="mx-4 h-5 w-px bg-white/30"></span>
+                <span class="text-xs leading-tight">Waived if you enroll on the day of, or the day after, your consultation</span>
+            </div>
+            <p class="text-[10px] text-gray-500 mb-1">* The waiver does not apply to Gr. 12 / gap-year students enrolling July&ndash;February, or to Grade 12 students enrolling from October onward.</p>
+            <p class="text-[10px] text-gray-500 mb-3">* USD figures are approximate and for reference only. All payments are made in Japanese yen.</p>
+
+            <h2 class="text-lg serif text-navy font-bold mb-1">Targeted Plans</h2>
+            <p class="text-[11px] text-gray-700 mb-2">For students who want coaching focused on one specific area, at a lower monthly rate.</p>
+            <p class="text-[10px] text-gray-500 leading-relaxed mb-1">* Admissions strategy, self-analysis and document creation are not included. These plans strengthen one specific area only.</p>
+            <p class="text-[10px] text-gray-500 leading-relaxed mb-2">* These plans refine a Statement of Purpose you have already drafted. Writing one from scratch &mdash; which also requires self-analysis and school research &mdash; is covered by the core courses.</p>
+
+            <table class="w-full border-collapse text-center">
+                <thead>
+                    <tr class="text-xs">
+                        <th class="p-1 bg-navy text-white text-left font-bold w-[22%] border border-gray-300">Item</th>
+                        <th class="p-1 bg-gray-100 text-navy font-bold w-[39%] border border-gray-300">Interview Focus</th>
+                        <th class="p-1 bg-gray-100 text-navy font-bold w-[39%] border border-gray-300">Unlimited Review</th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs">
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Monthly (incl. tax)</td>
+                        <td class="p-1 border border-gray-300 font-serif text-base font-bold text-navy">&yen;66,000</td>
+                        <td class="p-1 border border-gray-300 font-serif text-base font-bold text-navy">&yen;66,000</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Monthly (excl. tax)</td>
+                        <td class="p-1 border border-gray-300">&yen;60,000</td>
+                        <td class="p-1 border border-gray-300">&yen;60,000</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Approx. USD</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$430</td>
+                        <td class="p-1 border border-gray-300 text-gray-500">$430</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Best for</td>
+                        <td class="p-1 border border-gray-300">Focused interview preparation</td>
+                        <td class="p-1 border border-gray-300">Detailed feedback on your Statement of Purpose</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Sessions / mo.</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">4</td>
+                        <td class="p-1 border border-gray-300 font-bold text-sm">0</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Document review</td>
+                        <td class="p-1 border border-gray-300 text-gray-400">&mdash;</td>
+                        <td class="p-1 border border-gray-300 text-gold font-bold">Unlimited</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Essay review</td>
+                        <td class="p-1 border border-gray-300 text-gray-400">&mdash;</td>
+                        <td class="p-1 border border-gray-300 text-gray-400">&mdash;</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Chat support</td>
+                        <td class="p-1 border border-gray-300">Limited</td>
+                        <td class="p-1 border border-gray-300">Limited</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 border border-gray-300 text-left font-bold bg-gray-50">Notes</td>
+                        <td class="p-1 border border-gray-300">School-specific question sets provided</td>
+                        <td class="p-1 border border-gray-300">One 50-minute video call per month</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-footer">Page 08 | Ark College Brochure</div>
+    </div>
+
+    <!-- P9: Options & Information -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Options &amp; Information</span>
+        </div>
+
+        <div class="content-area flex flex-col gap-3">
+
+            <!-- Option: Additional Sessions -->
+            <section>
+                <h2 class="text-lg serif text-navy font-bold mb-2">Add-On Options (Extra Sessions)</h2>
+                <p class="text-[11px] text-gray-700 leading-relaxed text-justify mb-3">
+                    For students enrolled in the Interview Focus, Unlimited Review, Light, Standard, Advanced or Intensive course. For sudden needs &mdash; an essay contest, a last-minute interview, or a few more sessions just before exams &mdash; you can add sessions to your current course. You may apply at any time during your course; sessions are added once payment is received.
+                </p>
+
+                <table class="w-full border-collapse text-center mb-3">
+                    <thead>
+                        <tr class="text-xs">
+                            <th class="p-2 bg-navy text-white font-bold w-[25%] border border-gray-300">Extra sessions</th>
+                            <th class="p-2 bg-gray-100 text-navy font-bold w-[25%] border border-gray-300">2</th>
+                            <th class="p-2 bg-gray-100 text-navy font-bold w-[25%] border border-gray-300">4</th>
+                            <th class="p-2 bg-gray-100 text-navy font-bold w-[25%] border border-gray-300">6</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs">
+                        <tr>
+                            <td class="p-2 border border-gray-300 font-bold bg-gray-50">Price (incl. tax)</td>
+                            <td class="p-2 border border-gray-300 font-serif text-base font-bold text-navy">¥44,000</td>
+                            <td class="p-2 border border-gray-300 font-serif text-base font-bold text-navy">¥77,000</td>
+                            <td class="p-2 border border-gray-300 font-serif text-base font-bold text-navy">¥99,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul class="text-[10px] text-gray-600 leading-relaxed space-y-1">
+                    <li>&bull; Sessions must be used within the month of payment.</li>
+                    <li>&bull; If you purchase the 2-session add-on for two months or more while in the Standard course, you will be switched automatically to the Advanced course; the 4-session add-on or larger switches you to the Intensive course.</li>
+                    <li>&bull; As this is an add-on, the number of reviews and other package terms follow your current course.</li>
+                </ul>
+            </section>
+
+            <!-- Terms -->
+            <section class="border-t border-gray-200 pt-3">
+                <h3 class="text-base serif font-bold text-navy mb-3">Service Terms</h3>
+                <div class="grid grid-cols-2 gap-x-8 text-[10px] text-gray-700 leading-relaxed">
+                    <ul class="space-y-1.5">
+                        <li>&bull; Each session is 50 minutes</li>
+                        <li>&bull; Course changes require email notice by the 10th of the preceding month<br><span class="text-gray-500">(ark.college.corporate@gmail.com)</span></li>
+                        <li>&bull; Sessions are used within the month; carry-over is not available except in special circumstances</li>
+                        <li>&bull; Payment for the following month is due by the 25th; unpaid accounts are suspended</li>
+                    </ul>
+                    <ul class="space-y-1.5">
+                        <li>&bull; Cancel at least 24 hours ahead to reschedule within the month</li>
+                        <li>&bull; Notice of cancellation is due by the 10th of the month</li>
+                        <li>&bull; Review is operated as a quality guarantee against the evaluation criteria</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Entry Fee -->
+            <section>
+                <h3 class="text-base serif font-bold text-navy mb-3">Enrollment Fee &amp; Offer</h3>
+                <div class="bg-navy text-white p-5 rounded flex justify-between items-center shadow-lg">
+                    <div>
+                        <div class="text-xs opacity-70 mb-1">Enrollment fee</div>
+                        <div class="text-xl font-serif">&yen;99,000 <span class="text-xs font-sans">(incl. tax)</span></div>
+                    </div>
+                    <div class="text-right border-l border-white/20 pl-6">
+                        <div class="text-gold font-bold text-sm mb-1"><i class="fa-solid fa-star mr-1"></i> Same-Day Enrollment Offer</div>
+                        <div class="text-xs opacity-90">Enroll on the day of, or the day after, your consultation and the fee is<br><span class="text-lg font-bold border-b border-gold text-white">fully waived</span>.</div>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-500 mt-2">* The waiver does not apply to Gr. 12 / gap-year students enrolling July&ndash;February, or to Grade 12 students enrolling from October onward.</p>
+            </section>
+
+            <!-- Refund & Disclaimer -->
+            <section class="grid grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">Refund Policy</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        <span class="font-bold">[Cooling-off]</span> You may cancel unconditionally within 8 days of signing.<br>
+                        <span class="font-bold">[Cancellation]</span> If you give notice by the 10th of the month, we refund unused sessions from the following month onward.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold border-b border-gray-300 pb-2 mb-2">Disclaimer</h3>
+                    <p class="text-[11px] leading-relaxed text-justify text-gray-600">
+                        Our coaching does not guarantee admission. Admission depends on how much the student themselves executes against the strategy. We also strictly decline to ghostwrite any part of an application.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Admission Screening -->
+            <section>
+                <h2 class="text-base serif font-bold text-navy mb-3">Admissions Screening</h2>
+                <div class="bg-gray-50 p-5 border-l-4 border-navy">
+                    <p class="text-[11px] leading-relaxed text-justify">
+                        To keep our coaching thoroughly individualized, we <span class="font-bold">stay small</span> and screen applicants. We extend an offer only where we judge that our coaching is the right fit for the student. Qualifications, track record, GPA, current school and place of residence are not screening criteria. We assess potential: the ability to think things through, the strength of your curiosity, your drive and the originality of your thinking. We look forward to meeting you at your free consultation.
+                    </p>
+                </div>
+            </section>
+        </div>
+        <div class="page-footer">Page 09 | Ark College Brochure</div>
+    </div>
+
+    <!-- P10: Profile & Back Cover -->
+    <div class="page">
+        <div class="page-header">
+            <span class="text-xs tracking-widest text-gray-400">ARK COLLEGE</span>
+            <span class="text-xs font-serif text-navy">Profile</span>
+        </div>
+
+        <div class="content-area h-full flex flex-col">
+            <section class="flex gap-6 items-start mb-auto">
+                <!-- Profile Image Placeholder -->
+                <div class="flex-shrink-0">
+                    <!-- [Image slot] Set the lead instructor photo here. A square crop is recommended. -->
+                    <img src="image.webp" 
+                         alt="Noah T. Profile" 
+                         class="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-inner">
+                </div>
+                <div>
+                    <h2 class="text-xl serif text-navy font-bold mb-1">Noah T.</h2>
+                    <p class="text-xs text-gold uppercase tracking-widest mb-3">Lead Instructor, Ark College</p>
+                    <p class="text-xs leading-relaxed text-gray-600 text-justify mb-4">
+                        Graduated from Keio University, Faculty of Law (Department of Law), then worked in industry before studying at a European business school in France.<br>
+                        Admitted to Keio University Faculty of Law through both FIT Admissions tracks A and B as a first-time applicant, an experience that led him into Comprehensive Admissions coaching. He spent four years as a mentor at Yoyo, a major Comprehensive Admissions prep school, guiding many students into highly selective universities. He later served as business head for the launch of a new Comprehensive Admissions school, where he systematized its coaching methodology and ran the organization.<br>
+                        He also spent 4+ years in marketing at a major global manufacturer, building market analysis, strategic planning and rigorous logical thinking through hands-on work.<br>
+                        To date he has coached 50+ students admitted to 31 universities, from national and public universities to Waseda, Keio, Sophia and ICU, as well as the top Kansai private universities.<br>
+                    </p>
+                    
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-sm font-bold text-navy mb-2">Selected Admissions Record</h4>
+                        <p class="text-[10px] leading-relaxed text-gray-500">
+                            Hitotsubashi, Ochanomizu, Yokohama National, Tsukuba, Kagawa, Fukushima, Keio, Waseda, International Christian University (ICU), Sophia, Meiji, Aoyama Gakuin, Rikkyo, Doshisha, Chuo, Hosei, Gakushuin, Kwansei Gakuin, Ritsumeikan, Kansai, Seikei, Meiji Gakuin, Japan Women&rsquo;s, Toyo, Kindai, Tokyo Woman&rsquo;s Christian, Nanzan, Ritsumeikan Asia Pacific (APU), Meisei, Teikyo, Josai, and others
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Back Cover Action -->
+            <div class="bg-navy text-white -mx-[15mm] -mb-[20mm] py-16 px-12 text-center relative overflow-hidden">
+                 <!-- Abstract Decoration -->
+                 <svg class="absolute top-0 left-0 text-white opacity-5 w-[300px] h-[300px]" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <circle cx="0" cy="100" r="50" />
+                    <circle cx="0" cy="100" r="70" />
+                    <circle cx="0" cy="100" r="90" />
+                </svg>
+
+                <h2 class="text-2xl serif mb-6 relative z-10">Start with a free strategy consultation.</h2>
+                <p class="text-sm opacity-80 mb-8 max-w-md mx-auto relative z-10">
+                    Tell us where you stand today and where you want to go.<br>
+                    We will lay out a strategic roadmap to admission.
+                </p>
+                
+                <div class="mb-8 relative z-10">
+                    <a href="https://forms.gle/rbWA7wUD6Uw1dG76A" target="_blank" rel="noopener noreferrer" class="inline-block border border-gold text-gold px-8 py-3 tracking-widest text-sm hover:bg-gold hover:text-navy transition-colors cursor-pointer no-underline">
+                        APPLY FOR CONSULTATION
+                    </a>
+                </div>
+
+                <div class="text-[10px] opacity-40 tracking-widest relative z-10">
+                    https://forms.gle/rbWA7wUD6Uw1dG76A<br>
+                    © ARK COLLEGE. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
